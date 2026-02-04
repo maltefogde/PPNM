@@ -3,3 +3,4 @@
 void hello(void){
 	std::cout << ">>Hello, world!<< from hello" << "\n";
 	}
+ 

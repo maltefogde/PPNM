@@ -1,0 +1,15 @@
+hello from hello
+1
+666
+fgamma(1)=1
+fgamma(1)=1
+fgamma(1)=1	 tgamma(1)=1
+fgamma(2)=1	 tgamma(2)=1
+fgamma(3)=2	 tgamma(3)=2
+fgamma(4)=6	 tgamma(4)=6
+fgamma(5)=24	 tgamma(5)=24
+fgamma(6)=120	 tgamma(6)=120
+fgamma(7)=720	 tgamma(7)=720
+fgamma(8)=5040	 tgamma(8)=5040
+fgamma(9)=40320	 tgamma(9)=40320
+tgamma(-1)=nan

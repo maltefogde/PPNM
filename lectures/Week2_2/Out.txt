@@ -1,0 +1,12 @@
+Hello, World! from hello
+a==b
+1 2 3 
+1 2 3 
+1 2 3 
+1 2 3 
+6 6 6 
+Now coming while loop:v[0]=6v[1]=6v[2]=6
+Now coming do-while loop:v[0]=6v[1]=6v[2]=6
+parametized constructor called...
+6,2,3
+destructor called...
