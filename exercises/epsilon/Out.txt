@@ -1,0 +1,35 @@
+Machine epsilon results:
+        float eps (loop) =   1.1920928955078125e-07
+        float eps (limits) = 1.1920928955078125e-07
+  Exp. (f): 2.0^{-23} =      1.1920928955078125e-07
+
+       double eps (loop) =   2.22044604925031308084726333618e-16
+       double eps (limits) = 2.22044604925031308084726333618e-16
+  Exp. (d): 2.0^{-52} =      2.22044604925031308084726333618e-16
+
+  long double eps (loop) =   1.08420217248550443400745280087e-19
+  long double eps (limits) = 1.08420217248550443400745280087e-19
+
+Non-commutativity of addition:
+  a==b ? false
+  a>1  ? false
+  b>1  ? true
+
+Explanation:
+  The addition is not commutative in floating point arithmetic because of rounding errors.
+  When computing a = 1 + tiny + tiny, the first addition (1 + tiny) is exact,
+  but the second addition (result + tiny) may be inexact due to rounding.
+  In contrast, b = tiny + tiny + 1 computes the sum in a different order,
+  which may yield a different result due to the same rounding issues.
+
+         tiny=0.00000000000000011
+  1+tiny+tiny=1.00000000000000000
+  tiny+tiny+1=1.00000000000000022
+
+Comparing doubles:
+  d1==d2? false
+  d1=0.79999999999999993
+  d2=0.80000000000000004
+
+Comparing doubles: the task
+  Is d1 approximately equal to d2? true
