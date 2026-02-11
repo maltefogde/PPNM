@@ -1,0 +1,2 @@
+stderr from python
+standard error stream

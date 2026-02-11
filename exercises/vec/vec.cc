@@ -34,20 +34,18 @@ vec& vec::operator/=(double n){
 
 // ===== non-member operators =====
 
-vec operator+(const vec& a, const vec& b){
-    vec r = a;
-    r += b;
-    return r;
+vec operator+(vec a, const vec& b){
+    a+=b;
+    return a;
 }
 
 vec operator-(const vec& a){
     return vec(-a.x, -a.y, -a.z);
 }
 
-vec operator-(const vec& a, const vec& b){
-    vec r = a;
-    r -= b;
-    return r;
+vec operator-(vec a, const vec& b){
+    a -= b;
+    return a;
 }
 
 vec operator*(const vec& a, double n){
