@@ -1,0 +1,1 @@
+ set terminal png ;set output "fig2.png" ;plot "erf.data" index 1 using 1:3 with lines ;

@@ -1,0 +1,38 @@
+a = 0 0 0
+c = 1 2 3
+d = 1 2 3
+ostream c = { 1, 2, 3 }
+
+e = 1 2 3
+f = 1 2 3
+
+u = { 1, 2, 3 }
+v = { 4, 5, 6 }
+u+v = { 5, 7, 9 }
+u-v = { -3, -3, -3 }
+-u  = { -1, -2, -3 }
+2*u = { 2, 4, 6 }
+u*2 = { 2, 4, 6 }
+u/2 = { 0.5, 1, 1.5 }
+
+[PASS] t=u; t+=v equals u+v
+[PASS] t=u; t-=v equals u-v
+[PASS] t=u; t*=2 equals u*2
+[PASS] t=u; t/=2 equals u/2
+
+[PASS] dot: ex·ey = 0
+[PASS] dot: ex·ex = 1
+[PASS] dot: u·v matches component formula
+[PASS] cross: ex×ey = ez
+[PASS] cross: ey×ex = -ez
+[PASS] cross: ex×ex = 0
+[PASS] orthogonality: u·(u×v)=0
+[PASS] orthogonality: v·(u×v)=0
+[PASS] norm: |ex| = 1
+[PASS] norm: |(3,4,0)| = 5
+[PASS] norm: |u| = sqrt(u·u)
+[PASS] complex approx: p==q
+[PASS] complex norm matches
+[PASS] complex dot: imag(p·p)=0 (Hermitian)
+
+Done.
