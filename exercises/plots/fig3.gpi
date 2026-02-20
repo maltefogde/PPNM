@@ -1,0 +1,10 @@
+set terminal svg
+set output "fig3.svg"
+set xlabel "x"
+set ylabel "y"
+set key right bottom
+set tics out
+plot [-5:5] \
+	"erf.data" using 1:6 with points pointtype 4 title "lngamma from std", \
+	lgamma(x) with lines title "lngamma(x) in gnuplot", \
+	"erf.data" using 1:7 with points pointtype 2 title "lngamma approx func"	

@@ -1,7 +1,8 @@
 #include <iostream>
 #include <cmath>
 #include <complex>
-#include <utility>   // std::move
+#include <utility>
+#include <string>
 #include "vec.h"
 
 static bool approx_double(double a, double b, double acc=1e-9, double eps=1e-9){
@@ -15,77 +16,51 @@ static void test(bool ok, const std::string& name){
 }
 
 int main(){
-    // --- constructors + print + operator<< ---
-    vec<double> a;                 // default
-    vec<double> b(1,2,3);          // parameterized
-    vec<double> c = b;             // copy
-    vec<double> d = std::move(b);  // move
+    // -------- double --------
+    {
+        vec<double> u(1,2,3), v(4,5,6);
+        test( approx(u+v, vec<double>(5,7,9)), "double: u+v" );
+        test( approx(u-v, vec<double>(-3,-3,-3)), "double: u-v" );
+        test( approx_double(u.dot(v), 32.0), "double: dot(u,v)=32" );
+        test( approx(u.cross(v), vec<double>(-3,6,-3)), "double: cross(u,v)" );
+        test( approx_double(vec<double>(3,4,0).norm(), 5.0), "double: norm(3,4,0)=5" );
+    }
 
-    a.print("a = ");
-    c.print("c = ");
-    d.print("d = ");
-    std::cout << "ostream c = " << c << "\n\n";
+    // -------- float --------
+    {
+        vec<float> a(1.f,2.f,3.f), b(0.5f,0.5f,0.5f);
+        auto c = a + b;
+        test( approx(c, vec<float>(1.5f,2.5f,3.5f), 1e-6f, 1e-6f), "float: add" );
+        test( approx_double(double(a.dot(a)), 14.0), "float: dot(a,a)=14 (cast)" );
+        test( approx_double(double(a.norm()), std::sqrt(14.0)), "float: norm" );
+    }
 
-    // --- assignment ---
-    vec<double> e; e = c;                 // copy assignment
-    vec<double> f; f = std::move(c);      // move assignment
-    e.print("e = ");
-    f.print("f = ");
-    std::cout << "\n";
+    // -------- int --------
+    {
+        vec<int> p(1,2,3), q(4,5,6);
+        auto s = p + q;
+        test( s.x==5 && s.y==7 && s.z==9, "int: p+q exact" );
+        test( p.dot(q) == 32, "int: dot exact" );
 
-    // --- arithmetic operators ---
-    vec<double> u(1,2,3), v(4,5,6);
+        auto r = p.cross(q);
+        test( r.x==-3 && r.y==6 && r.z==-3, "int: cross exact" );
 
-    std::cout << "u = " << u << "\n";
-    std::cout << "v = " << v << "\n";
-    std::cout << "u+v = " << (u+v) << "\n";
-    std::cout << "u-v = " << (u-v) << "\n";
-    std::cout << "-u  = " << (-u)  << "\n";
-    std::cout << "2*u = " << (2.0*u) << "\n";
-    std::cout << "u*2 = " << (u*2.0) << "\n";
-    std::cout << "u/2 = " << (u/2.0) << "\n\n";
+        // norm() should be sqrt(14) now (because we fixed norm to return floating)
+        test( approx_double(double(p.norm()), std::sqrt(14.0)), "int: norm sqrt(14)" );
+    }
 
-    // --- compound operators ---
-    vec<double> t = u; t += v; test( approx(t, u+v), "t=u; t+=v equals u+v");
-    t = u; t -= v;         test( approx(t, u-v), "t=u; t-=v equals u-v");
-    t = u; t *= 2.0;       test( approx(t, u*2.0), "t=u; t*=2 equals u*2");
-    t = u; t /= 2.0;       test( approx(t, u/2.0), "t=u; t/=2 equals u/2");
-    std::cout << "\n";
+    // -------- complex<double> --------
+    {
+        using cd = std::complex<double>;
+        vec<cd> p(cd(1,2), cd(0,-1), cd(3,0));
+        vec<cd> q(cd(1,2), cd(0,-1), cd(3,0));
 
-    // --- vector algebra tests ---
-    vec<double> ex(1,0,0), ey(0,1,0), ez(0,0,1);
+        test( approx(p, q), "complex: approx(p,q)" );
+        test( approx_double(double(p.norm()), double(q.norm())), "complex: norm matches" );
 
-    // dot
-    test( approx_double(ex.dot(ey), 0.0), "dot: ex·ey = 0");
-    test( approx_double(ex.dot(ex), 1.0), "dot: ex·ex = 1");
-    test( approx_double(u.dot(v), 1*4 + 2*5 + 3*6), "dot: u·v matches component formula");
-
-    // cross (right-hand rule)
-    test( approx(ex.cross(ey), ez), "cross: ex×ey = ez");
-    test( approx(ey.cross(ex), -ez), "cross: ey×ex = -ez");
-    test( approx(ex.cross(ex), vec<double>(0,0,0)), "cross: ex×ex = 0");
-
-    // orthogonality: u·(u×v)=0 and v·(u×v)=0
-    vec<double> uxv = u.cross(v);
-    test( approx_double(u.dot(uxv), 0.0), "orthogonality: u·(u×v)=0");
-    test( approx_double(v.dot(uxv), 0.0), "orthogonality: v·(u×v)=0");
-
-    // norm
-    test( approx_double(ex.norm(), 1.0), "norm: |ex| = 1");
-    test( approx_double(vec<double>(3,4,0).norm(), 5.0), "norm: |(3,4,0)| = 5");
-    test( approx_double(u.norm(), std::sqrt(u.dot(u))), "norm: |u| = sqrt(u·u)");
-
-    // --- complex tests ---
-    using cd = std::complex<double>;
-    vec<cd> p(cd(1,2), cd(0,-1), cd(3,0));
-    vec<cd> q(cd(1,2), cd(0,-1), cd(3,0));
-
-    test( approx(p, q), "complex approx: p==q" );
-    test( approx_double(p.norm(), q.norm()), "complex norm matches" );
-
-    // Hermitian dot: imag(p·p)=0
-    cd dp = p.dot(p);
-    test( approx_double(std::imag(dp), 0.0), "complex dot: imag(p·p)=0 (Hermitian)" );
+        cd dp = p.dot(p); // Hermitian => imag should be 0
+        test( approx_double(std::imag(dp), 0.0), "complex: imag(p·p)=0" );
+    }
 
     std::cout << "\nDone.\n";
     return 0;

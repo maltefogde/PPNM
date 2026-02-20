@@ -1,0 +1,10 @@
+set terminal svg
+set output "fig2.svg"
+set xlabel "x"
+set ylabel "y"
+set key right bottom
+set tics out
+plot [-5:5] \
+	"erf.data" using 1:4 with points pointtype 4 title "gamma from std", \
+	gamma(x) with lines title "gamma(x) in gnuplot", \
+	"erf.data" using 1:5 with points pointtype 2 title "gamma approx func"	

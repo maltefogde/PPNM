@@ -50,17 +50,20 @@ struct vec {
         );
     }
 
-    // norm: always real_type_t<T>
-    real_type_t<T> norm() const {
-        using R = real_type_t<T>;
+    // norm: return a floating type (works nicely for int/float/double/complex)
+    auto norm() const {
+        using R0 = real_type_t<T>;
+        using R  = std::common_type_t<R0, double>;
+
         using std::sqrt;
-        if constexpr (std::is_same_v<T, std::complex<R>>) {
-            using std::norm;
-            return sqrt(norm(x) + norm(y) + norm(z)); // sum |component|^2
+        if constexpr (std::is_same_v<T, std::complex<R0>>) {
+            using std::norm; // |z|^2
+            return sqrt(R(norm(x) + norm(y) + norm(z)));
         } else {
-            return sqrt(x*x + y*y + z*z);
+            return sqrt(R(x)*R(x) + R(y)*R(y) + R(z)*R(z));
         }
     }
+
 };
 
 // stream output (requires only that T is streamable)

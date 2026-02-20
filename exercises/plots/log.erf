@@ -1,0 +1,10 @@
+i= 0 arg=./main
+i= 1 arg=-xmin
+i= 2 arg=-4.9
+i= 3 arg=-xmax
+i= 4 arg=4.9
+i= 5 arg=dx
+i= 6 arg=0.125
+xmin= -4.9
+xmax= 4.9
+dx= 0.125
