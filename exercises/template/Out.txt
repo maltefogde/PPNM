@@ -1,0 +1,17 @@
+[PASS] double: u+v
+[PASS] double: u-v
+[PASS] double: dot(u,v)=32
+[PASS] double: cross(u,v)
+[PASS] double: norm(3,4,0)=5
+[PASS] float: add
+[PASS] float: dot(a,a)=14 (cast)
+[PASS] float: norm
+[PASS] int: p+q exact
+[PASS] int: dot exact
+[PASS] int: cross exact
+[PASS] int: norm sqrt(14)
+[PASS] complex: approx(p,q)
+[PASS] complex: norm matches
+[PASS] complex: imag(p·p)=0
+
+Done.

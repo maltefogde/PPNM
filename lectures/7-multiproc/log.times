@@ -1,0 +1,1 @@
+	set terminal svg ;	set output "times.svg" ;	set xlabel "number of threads" ;	set ylabel "real time" ;	a=1; b=10;	f(x)=a+b/x;	fit f(x) "out.times" using 1:2 via a,b ;	plot 		 "out.times" using 1:2 with linespoints title "times" 		 ,f(x) title "fit with 1/n" ;
