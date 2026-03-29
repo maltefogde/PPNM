@@ -1,0 +1,40 @@
+
+------ TASK A ------
+Test that QR works for tall matrices: generating a tall matrix and testing
+Q R = A:            true
+
+Investigate the law of radioactive decay:
+Results of the fit:
+a       = 142.404
+lambda  = 0.170624
+
+T_{1/2} from fit  = 4.06242 days
+Excpected T_{1/2} = 3.631 days
+Deviation         = 11.8817 %
+See thx_fit.svg or thxlog_fit.svg
+
+
+------ TASK B ------
+Result of new fitting function including covariance matrix:
+c0 = ln(a) = 4.95866 +/- 0.0354019
+c1 = -lambda = -0.170624 +/- 0.00715662
+
+a = 142.404 +/- 5.04136
+lambda = 0.170624 +/- 0.00715662 1/day
+T_1/2 = 4.06242 +/- 0.170394 days
+
+Covariance matrix:
+   0.00125  -0.000197 
+ -0.000197   5.12e-05 
+
+Excpected T_{1/2} = 3.631 days
+Difference = 0.431424 days
+Agreement: No, the expected value of T_1/2 is not within the estimated 1-sigma fit uncertainty.
+
+
+------ TASK C ------
+Best-fit coefficients:
+c0 = 4.95866 +/- 0.0354019
+c1 = -0.170624 +/- 0.00715662
+
+See thx_taskC.svg
