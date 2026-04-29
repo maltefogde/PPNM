@@ -1,0 +1,56 @@
+
+------ TASK A ------
+Wrote Task_A1.dat
+
+
+------ TASK B ------
+Wrote Task_B1.dat
+Describing how every function looks as expected?
+
+--- const ---
+Analytical case: y = 1
+Expected spline:      S(x) = 1
+Expected derivative:  S'(x) = 0
+Expected integral:    I(x) = x - 1
+Expected b: 0 0 0 0
+Expected c: 0 0 0 0
+Computed b: 0 0 0 0 
+Computed c: 0 0 0 0 
+max |S - S_exact|   = 0.000000e+00
+max |S' - S'_exact| = 0.000000e+00
+max |I - I_exact|   = 0.000000e+00
+
+--- linear ---
+Analytical case: y = x
+Expected spline:      S(x) = x
+Expected derivative:  S'(x) = 1
+Expected integral:    I(x) = (x^2 - 1)/2
+Expected b: 1 1 1 1
+Expected c: 0 0 0 0
+Computed b: 1.000000e+00 1.000000e+00 1.000000e+00 1.000000e+00 
+Computed c: 0.000000e+00 0.000000e+00 0.000000e+00 0.000000e+00 
+max |S - S_exact|   = 0.000000e+00
+max |S' - S'_exact| = 0.000000e+00
+max |I - I_exact|   = 1.776357e-15
+
+--- quadratic ---
+Analytical case: y = x^2
+Expected spline:      S(x) = x^2
+Expected derivative:  S'(x) = 2x
+Expected integral:    I(x) = (x^3 - 1)/3
+Expected b: 2 4 6 8
+Expected c: 1 1 1 1
+Computed b: 2.000000e+00 4.000000e+00 6.000000e+00 8.000000e+00 
+Computed c: 1.000000e+00 1.000000e+00 1.000000e+00 1.000000e+00 
+max |S - S_exact|   = 3.552714e-15
+max |S' - S'_exact| = 0.000000e+00
+max |I - I_exact|   = 7.105427e-15
+
+
+------ TASK C ------
+
+--- Task C: Cubic spline comparison ---
+Generated files:
+  Task_C_cubic_points.dat
+  Task_C_cubic_own.dat
+Compare my CubicSpline with gnuplot's built-in smooth csplines in Task_C_cubic_comparison.svg
