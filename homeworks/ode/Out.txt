@@ -1,0 +1,59 @@
+
+------ TASK A ------
+Exercise A.3: Harmonic oscillator test: u'' = -u
+Accepted points: 98032
+Max error in u:  1.64349e-08
+Max error in u': 1.37394e-08
+Wrote Task_A_harmonic.dat
+See Task_A_harmonic.svg
+
+Exercise A.4.1: Damped pendulum
+Accepted points: 256315
+Wrote Task_A_friction.dat
+See Task_A_friction.svg
+
+Exercise A.4.2: Lotka-Volterra test
+Accepted points: 652338
+Wrote Task_A_lotka.dat
+Task_A_lotka.svg
+
+
+
+------ TASK B ------
+Newtonian circular orbit
+  eps = 0
+  initial condition: u(0) = 1, u'(0) = 0
+  accepted points: 13
+  plot points: 4001
+  wrote: Task_B_circular.dat
+
+Newtonian elliptical orbit
+  eps = 0
+  initial condition: u(0) = 1, u'(0) = -0.5
+  accepted points: 1796636
+  plot points: 4001
+  wrote: Task_B_ellipse.dat
+
+Relativistic precessing orbit
+  eps = 0.01
+  initial condition: u(0) = 1, u'(0) = -0.5
+  accepted points: 1775053
+  plot points: 4001
+  wrote: Task_B_precession.dat
+
+Plot orbit using columns 4 and 5, e.g.
+plot 'Task_B_precession.dat' using 4:5 with lines notitle
+
+
+------ TASK C ------
+Newtonian three-body figure-8 orbit
+
+Output file:
+  Task_C_figure8.dat
+
+Integration setup:
+  Period T      = 6.32591
+  initial h     = 0.01
+  acc           = 1e-06
+  eps           = 1e-06
+  output points = 155527
