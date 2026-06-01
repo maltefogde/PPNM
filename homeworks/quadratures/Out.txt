@@ -1,0 +1,285 @@
+
+------ TASK A ------
+
+Testing the adaptive integrator on improper integrals.
+
+Integral of sqrt(x) from 0 to 1
+  result          = 0.6666666796852266
+  exact           = 0.6666666666666666
+  estimated error = 5.617417271208211e-07
+  actual error    = 1.301856000779367e-08
+  goal            = 1.666666679685227e-06
+  ncalls          = 276
+  status          = OK
+
+Integral of 1/sqrt(x) from 0 to 1
+  result          = 1.999999998949156
+  exact           = 2
+  estimated error = 6.148833912907951e-07
+  actual error    = 1.050843856376105e-09
+  goal            = 2.999999998949156e-06
+  ncalls          = 123900
+  status          = OK
+
+Integral of sqrt(1 - x^2) from 0 to 1
+  result          = 0.7853981705785724
+  exact           = 0.7853981633974483
+  estimated error = 4.223269790667783e-07
+  actual error    = 7.181124139776784e-09
+  goal            = 1.785398170578572e-06
+  ncalls          = 384
+  status          = OK
+
+Integral of log(x)/sqrt(x) from 0 to 1
+  result          = -3.999999999413053
+  exact           = -4
+  estimated error = 6.137501566168838e-07
+  actual error    = 5.869473795883096e-10
+  goal            = 4.999999999413052e-06
+  ncalls          = 302996
+  status          = OK
+
+Computing the error function from its integral definition.
+
+z = -3
+  erf_integral = -0.9999779206556768
+  std::erf     = -0.9999779095030015
+  error        = 1.115267533879916e-08
+
+z = -2.5
+  erf_integral = -0.9995930486355388
+  std::erf     = -0.999593047982555
+  error        = 6.529837781599213e-10
+
+z = -2
+  erf_integral = -0.9953222652325278
+  std::erf     = -0.9953222650189527
+  error        = 2.135750465370734e-10
+
+z = -1.5
+  erf_integral = -0.9661051467771473
+  std::erf     = -0.9661051464753108
+  error        = 3.018365557494462e-10
+
+z = -1
+  erf_integral = -0.8427007929518222
+  std::erf     = -0.8427007929497148
+  error        = 2.107425345343472e-12
+
+z = -0.5
+  erf_integral = -0.5204998778128986
+  std::erf     = -0.5204998778130465
+  error        = 1.478817068800709e-13
+
+z = 0
+  erf_integral = 0
+  std::erf     = 0
+  error        = 0
+
+z = 0.5
+  erf_integral = 0.5204998778128986
+  std::erf     = 0.5204998778130465
+  error        = 1.478817068800709e-13
+
+z = 1
+  erf_integral = 0.8427007929518222
+  std::erf     = 0.8427007929497148
+  error        = 2.107425345343472e-12
+
+z = 1.5
+  erf_integral = 0.9661051467771473
+  std::erf     = 0.9661051464753108
+  error        = 3.018365557494462e-10
+
+z = 2
+  erf_integral = 0.9953222652325278
+  std::erf     = 0.9953222650189527
+  error        = 2.135750465370734e-10
+
+z = 2.5
+  erf_integral = 0.9995930486355388
+  std::erf     = 0.999593047982555
+  error        = 6.529837781599213e-10
+
+z = 3
+  erf_integral = 0.9999779206556768
+  std::erf     = 0.9999779095030015
+  error        = 1.115267533879916e-08
+
+Wrote erf.dat
+Wrote erf_acc.dat
+
+------ TASK B ------
+
+Clenshaw-Curtis variable transformation.
+Comparison with the ordinary adaptive integrator.
+
+Integral of 1/sqrt(x) from 0 to 1
+  exact = 2
+
+  ordinary integral = 1.999999998949156
+  ordinary error    = 1.050843856376105e-09
+  ordinary est err = 6.148833912907951e-07
+  ordinary ncalls   = 123900
+  ordinary status   = OK
+
+  CC integral       = 1.99999999993764
+  CC error          = 6.235989502556549e-11
+  CC est err       = 6.601397014681718e-07
+  CC ncalls         = 352
+  CC status         = OK
+
+Integral of log(x)/sqrt(x) from 0 to 1
+  exact = -4
+
+  ordinary integral = -3.999999999413053
+  ordinary error    = 5.869473795883096e-10
+  ordinary est err = 6.137501566168838e-07
+  ordinary ncalls   = 302996
+  ordinary status   = OK
+
+  CC integral       = failed
+  CC reason         = integrate: maximum recursion depth reached
+  CC ncalls         = 201960
+  CC status         = NOT OK
+
+Integral of 1/sqrt(1 - x) from 0 to 1
+  exact = 2
+
+  ordinary integral = 1.999999989935607
+  ordinary error    = 1.006439309669815e-08
+  ordinary est err = 6.148833912952857e-07
+  ordinary ncalls   = 5464
+  ordinary status   = OK
+
+  CC integral       = 1.999999999937642
+  CC error          = 6.235789662412117e-11
+  CC est err       = 6.601397014811441e-07
+  CC ncalls         = 352
+  CC status         = OK
+
+Infinite interval integrals using variable transformations.
+
+Integral of exp(-x) from 0 to infinity
+  result = 0.9999999880006717
+  exact  = 1
+  estimated error = 5.242782475653496e-07
+  actual error    = 1.199932830875383e-08
+  goal   = 1.999999988000672e-06
+  ncalls = 540
+  status = OK
+
+Integral of 1/(1 + x^2) from -infinity to infinity
+  result = 3.141592653508641
+  exact  = 3.141592653589793
+  estimated error = 6.246214639804969e-07
+  actual error    = 8.115197402958074e-11
+  goal   = 4.141592653508641e-06
+  ncalls = 744
+  status = OK
+
+Integral of exp(-x^2) from -infinity to infinity
+  result = 1.772453591357624
+  exact  = 1.772453850905516
+  estimated error = 4.649766251757058e-07
+  actual error    = 2.595478922895467e-07
+  goal   = 2.772453591357623e-06
+  ncalls = 992
+  status = OK
+
+
+------ TASK C ------
+
+Testing the quality of the returned error estimate.
+The actual error is abs(result - exact).
+The ratio actual/estimated should ideally be around or below 1.
+
+Integral of sqrt(x) from 0 to 1
+  result             = 0.6666666796852266
+  exact              = 0.6666666666666666
+  estimated error    = 5.617417271208211e-07
+  actual error       = 1.301856000779367e-08
+  actual/estimated   = 0.02317534799225195
+  ncalls             = 276
+  estimate status    = conservative
+
+Integral of 1/sqrt(x) from 0 to 1
+  result             = 1.999999998949156
+  exact              = 2
+  estimated error    = 6.148833912907951e-07
+  actual error       = 1.050843856376105e-09
+  actual/estimated   = 0.001709013239356033
+  ncalls             = 123900
+  estimate status    = conservative
+
+Integral of log(x)/sqrt(x) from 0 to 1
+  result             = -3.999999999413053
+  exact              = -4
+  estimated error    = 6.137501566168838e-07
+  actual error       = 5.869473795883096e-10
+  actual/estimated   = 0.0009563294986736678
+  ncalls             = 302996
+  estimate status    = conservative
+
+Integral of sin(100x) from 0 to 1
+  result             = 0.001376811591777126
+  exact              = 0.001376811277123161
+  estimated error    = 4.414225814562028e-07
+  actual error       = 3.146539647759516e-10
+  actual/estimated   = 0.0007128180070397488
+  ncalls             = 6740
+  estimate status    = conservative
+
+Integral of narrow peak from 0 to 1
+  result             = 0.03101623644617956
+  exact              = 0.03101597985643492
+  estimated error    = 5.456026501329701e-07
+  actual error       = 2.565897446391019e-07
+  actual/estimated   = 0.4702868370902667
+  ncalls             = 464
+  estimate status    = conservative
+
+------ PYTHON / SCIPY COMPARISON ------
+
+Integral of 1/sqrt(x) from 0 to 1
+  scipy result          = 1.999999999999998
+  exact                 = 2
+  actual error          = 1.554312234475219e-15
+  scipy estimated error = 5.773159728050814e-15
+  scipy ncalls          = 231
+
+Integral of log(x)/sqrt(x) from 0 to 1
+  scipy result          = -4.000000000000071
+  exact                 = -4
+  actual error          = 7.105427357601002e-14
+  scipy estimated error = 2.158273559871304e-13
+  scipy ncalls          = 315
+
+Integral of 1/sqrt(1 - x) from 0 to 1
+  scipy result          = 2.00000000000013
+  exact                 = 2
+  actual error          = 1.301181384860683e-13
+  scipy estimated error = 4.387601393318619e-13
+  scipy ncalls          = 231
+
+Integral of exp(-x) from 0 to infinity
+  scipy result          = 0.9999999999995187
+  exact                 = 1
+  actual error          = 4.812816811750054e-13
+  scipy estimated error = 1.842981487266041e-07
+  scipy ncalls          = 105
+
+Integral of 1/(1 + x^2) from -infinity to infinity
+  scipy result          = 3.141592653589793
+  exact                 = 3.141592653589793
+  actual error          = 0
+  scipy estimated error = 5.155583041103855e-10
+  scipy ncalls          = 90
+
+Integral of exp(-x^2) from -infinity to infinity
+  scipy result          = 1.772453850905514
+  exact                 = 1.772453850905516
+  actual error          = 1.998401444325282e-15
+  scipy estimated error = 3.429548847050179e-08
+  scipy ncalls          = 210
+

@@ -1,0 +1,45 @@
+
+------ TASK A: plain Monte Carlo ------
+
+Area of unit circle
+Exact value                  = 3.141592653589793
+Data written to              = A_circle_errors.dat
+Fitted slope of actual error = -0.4905775587560396
+Expected slope               = -0.5
+
+Log-log plot of these errors can be found in A_circle_errors.svg
+
+Volume of ellipsoid with a=1, b=2, c=3
+Monte Carlo estimate         = 25.137936
+Estimated error              = 0.02397300777249079
+Exact value                  = 25.13274122871834
+Actual error                 = 0.005194771281658461
+
+
+------ TASK B: quasi-random sequences ------
+
+Scaling comparison made with a non-singular test integral
+Integral int_0^1 int_0^1 (x^2+y^2) dx dy = 0.6666666666666666
+Data written to B_scaling.dat
+
+A plot of this comparison can be found in B_scaling.svg
+
+Difficult singular integral, N = 200000
+Exact value                  = 1.393203929685677
+LCG estimate                 = 1.387250104217473 +/- 0.01466220705022555, actual error = 0.005953825468203666
+std::mt19937 estimate        = 1.395204400519289 +/- 0.01542273870336545, actual error = 0.002000470833612544
+Halton estimate              = 1.376149801675767 +/- 0.005701685579487137, actual error = 0.01705412800990946
+For the smooth test integral, the Halton sequence shows the expected improved scaling compared to pseudo-random Monte Carlo.
+For the singular integral, however, the advantage is not guaranteed, since the integrand is not sufficiently regular near the origin
+In addition, the usual Monte Carlo error estimate is not directly meaningful for deterministic quasi-random points.
+
+
+------ TASK C: stratified sampling ------
+
+Smooth test integral, N = 100000
+Integral int_0^1 int_0^1 (x^2+y^2) dx dy
+Exact value                  = 0.6666666666666666
+Plain MC estimate            = 0.6671349809772933 +/- 0.001334608538354312, actual error = 0.0004683143106266607
+Stratified estimate          = 0.666736899866144 +/- 6.573116480703754e-05, actual error = 7.023319947740969e-05
+
+Stratified sampling produces the correct result and reduces the estimated error.

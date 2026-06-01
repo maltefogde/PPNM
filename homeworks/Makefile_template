@@ -1,0 +1,23 @@
+CXX = clang++
+CXXFLAGS = -std=c++23 -O2 -Wall -Wextra -Werror
+
+.PHONY: all run clean
+
+all: Out.txt
+
+main: main.cc mc.hpp
+	$(CXX) $(CXXFLAGS) main.cc -o main
+
+Out.txt:
+	./main -taskA > Out.txt
+	./main -taskB >> Out.txt
+	./main -taskC >> Out.txt
+
+
+run: main
+	./main -taskA > Out.txt
+	./main -taskB >> Out.txt
+	./main -taskC >> Out.txt
+
+clean:
+	rm -f main Out.txt *.dat *.svg
