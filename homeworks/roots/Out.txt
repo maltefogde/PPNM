@@ -1,0 +1,69 @@
+
+------ TASK A: Newton root finding ------
+
+Simple one-dimensional test: cos(x)-x=0
+Root                         = 0.7390851333853343
+Norm of f(root)              = 2.848047353509742e-10
+Iterations                   = 3
+
+Simple two-dimensional test
+Equations x^2+y^2=1 and x=y
+Root                         = (0.7071067811865497, 0.7071067811865497)
+Norm of f(root)              = 5.995204332975845e-15
+Iterations                   = 4
+
+Rosenbrock valley function
+Minimum found at             = (1.000000000000068, 1.000000000000135)
+f(x,y) at this point         = 4.59141698741917e-27
+Norm of gradient             = 2.286196958959406e-13
+Iterations                   = 43
+
+Himmelblau function
+Minimum 1 found at          = (3, 2)
+f(x,y) at this point         = 0
+Norm of gradient             = 0
+Minimum 2 found at          = (-2.805118096003846, 3.131312520155976)
+f(x,y) at this point         = 2.783930975838009e-15
+Norm of gradient             = 6.022287915396436e-07
+Minimum 3 found at          = (-3.77931025337792, -3.283185991286874)
+f(x,y) at this point         = 2.020843282477667e-23
+Norm of gradient             = 5.730715053937009e-11
+Minimum 4 found at          = (3.584428340330691, -1.848126526964643)
+f(x,y) at this point         = 2.578328759842459e-24
+Norm of gradient             = 1.998449628947756e-11
+
+
+------ TASK B: Hydrogen shooting method ------
+
+Near r=0, inserting f=a*r+b*r^2+... gives the constant term -a-b=0,
+so b=-a. Choosing a=1 gives f(r->0)=r-r^2.
+
+Using rmin = 0.001, rmax = 8
+Lowest numerical energy      = -0.4999751026674987
+Exact ground-state energy    = -0.5
+Actual error                 = 2.489733250132797e-05
+M(E0)=F_E0(rmax)             = 2.432657869744183e-08
+Iterations                   = 6
+
+Wave-function data written to B_hydrogen_wave.dat
+Plot can be found in B_hydrogen_wave.svg
+
+Convergence data written to B_convergence_*.dat
+Convergence plots can be found in B_convergence_*.svg
+
+
+------ TASK C: quadratic interpolation line-search ------
+
+Rosenbrock minimum with quadratic line-search
+Minimum found at             = (1.000000000002184, 1.000000000004261)
+f(x,y) at this point         = 5.91446614796707e-24
+Norm of gradient             = 5.180660902743452e-11
+Iterations                   = 90
+
+Himmelblau test with quadratic line-search
+Minimum found at             = (-3.77931025337792, -3.283185991286874)
+f(x,y) at this point         = 2.020843282477667e-23
+Norm of gradient             = 5.730715053937009e-11
+Iterations                   = 4
+
+The Jacobian matrix is allocated once in roots::newton and then updated at each iteration.

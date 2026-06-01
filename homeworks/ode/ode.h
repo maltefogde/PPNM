@@ -8,7 +8,7 @@
 #include <stdexcept>
 #include <limits>
 
-#include "vec.h"
+#include "../lib/vec.h"
 
 
 inline std::tuple<vec, vec> rkstep12( // Stepper
