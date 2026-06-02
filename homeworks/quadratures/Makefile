@@ -16,7 +16,7 @@ Out.txt erf.dat erf_acc.dat: main comparison.py
 
 erf.svg: erf.dat
 	echo '\
-		set terminal svg size 1000,700 enhanced background rgb "white"; \
+		set terminal svg background rgb "white"; \
 		set output "erf.svg"; \
 		set grid; \
 		set xlabel "z"; \
@@ -29,7 +29,7 @@ erf.svg: erf.dat
 
 erf_acc.svg: erf_acc.dat
 	echo '\
-		set terminal svg size 1000,700 enhanced background rgb "white"; \
+		set terminal svg background rgb "white"; \
 		set output "erf_acc.svg"; \
 		set grid; \
 		set logscale xy; \

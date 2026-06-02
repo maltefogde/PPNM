@@ -1,0 +1,69 @@
+
+------ TASK A: Newton minimization with forward finite differences ------
+
+Rosenbrock valley function
+method = forward, iterations = 23, evals = 341, results:
+   f(x) = 8.30764732099e-11
+   |grad| = 3.95942947221e-07
+   x = { 0.999990886557, 0.999981758491 }
+Expected minimum = { 1, 1 }
+
+Himmelblau function
+method = forward, iterations = 5, evals = 83, results:
+   f(x) = 3.32504820677e-14
+   |grad| = 3.21652061875e-09
+   x = { 2.99999997181, 1.99999999421 }
+One exact minimum = { 3, 2 }
+
+
+------ TASK B: Higgs boson discovery fit ------
+
+method = forward, iterations = 12, evals = 291, results:
+   f(x) =    26.8695117787
+   |grad| = 3.0409457951e-07
+   x = { 125.972186709, 2.08633031143, 9.87621315751 }
+
+Best-fit mass m              = 125.972186709 GeV
+Best-fit width Gamma         = 2.08633031143 GeV
+Best-fit scale A             = 9.87621315751
+Minimum deviation D          = 26.8695117787
+
+Data written to higgs_data.dat and higgs_fit.dat
+Plot can be found in higgs_fit.svg
+
+
+------ TASK C: central finite differences ------
+
+Rosenbrock comparison
+method = forward, iterations = 23, evals = 341, results:
+   f(x) = 8.30764732099e-11
+   |grad| = 3.95942947221e-07
+   x = { 0.999990886557, 0.999981758491 }
+method = central, iterations = 21, evals = 248, results:
+   f(x) = 8.63748953359e-16
+   |grad| = 3.78686809337e-10
+   x = { 0.99999997061, 0.99999994122 }
+
+Himmelblau comparison
+method = forward, iterations = 5, evals = 83, results:
+   f(x) = 3.32504820677e-14
+   |grad| = 3.21652061875e-09
+   x = { 2.99999997181, 1.99999999421 }
+method = central, iterations = 5, evals = 65, results:
+   f(x) = 3.44394879631e-19
+   |grad| = 2.32709510333e-13
+   x = { 2.99999999991, 1.99999999997 }
+
+Higgs comparison
+method = forward, iterations = 12, evals = 291, results:
+   f(x) =    26.8695117787
+   |grad| = 3.0409457951e-07
+   x = { 125.972186709, 2.08633031143, 9.87621315751 }
+method = central, iterations = 9, evals = 212, results:
+   f(x) =    26.8695117787
+   |grad| = 1.97654695392e-10
+   x = { 125.97218767, 2.08633023683, 9.87621337397 }
+
+Conclusion:
+Central finite differences are better in this test because they give the same minima
+with more accurate derivatives and, in this implementation, fewer total function evaluations.

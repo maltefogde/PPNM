@@ -15,7 +15,7 @@ Out.txt B_hydrogen_wave.dat B_convergence_rmax.dat B_convergence_rmin.dat B_conv
 
 B_hydrogen_wave.svg: B_hydrogen_wave.dat
 	echo '\
-		set terminal svg size 1000,700 enhanced background rgb "white"; \
+		set terminal svg background rgb "white"; \
 		set output "B_hydrogen_wave.svg"; \
 		set grid; \
 		set xlabel "r"; \
@@ -29,7 +29,7 @@ B_hydrogen_wave.svg: B_hydrogen_wave.dat
 
 B_convergence_rmax.svg: B_convergence_rmax.dat
 	echo '\
-		set terminal svg size 1000,700 enhanced background rgb "white"; \
+		set terminal svg background rgb "white"; \
 		set output "B_convergence_rmax.svg"; \
 		set grid; \
 		set logscale y; \
@@ -42,7 +42,7 @@ B_convergence_rmax.svg: B_convergence_rmax.dat
 
 B_convergence_rmin.svg: B_convergence_rmin.dat
 	echo '\
-		set terminal svg size 1000,700 enhanced background rgb "white"; \
+		set terminal svg background rgb "white"; \
 		set output "B_convergence_rmin.svg"; \
 		set grid; \
 		set logscale xy; \
@@ -55,7 +55,7 @@ B_convergence_rmin.svg: B_convergence_rmin.dat
 
 B_convergence_acc.svg: B_convergence_acc.dat
 	echo '\
-		set terminal svg size 1000,700 enhanced background rgb "white"; \
+		set terminal svg background rgb "white"; \
 		set output "B_convergence_acc.svg"; \
 		set grid; \
 		set logscale xy; \
@@ -68,7 +68,7 @@ B_convergence_acc.svg: B_convergence_acc.dat
 
 B_convergence_eps.svg: B_convergence_eps.dat
 	echo '\
-		set terminal svg size 1000,700 enhanced background rgb "white"; \
+		set terminal svg background rgb "white"; \
 		set output "B_convergence_eps.svg"; \
 		set grid; \
 		set logscale xy; \

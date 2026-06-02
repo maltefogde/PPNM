@@ -23,7 +23,7 @@ const.dat const_points.dat linear.dat linear_points.dat quadratic.dat quadratic_
 
 Task_A1.svg: Task_A1.dat Task_A1_points.dat
 	echo '\
-		set terminal svg size 900,600 enhanced background rgb "white"; \
+		set terminal svg background rgb "white"; \
 		set output "Task_A1.svg"; \
 		set title "Linear spline, cosine function"; \
 		set xlabel "x"; \
@@ -31,6 +31,8 @@ Task_A1.svg: Task_A1.dat Task_A1_points.dat
 		set ytics nomirror; \
 		set y2tics; \
 		set grid; \
+		set key outside bottom center horizontal; \
+		set bmargin 6; \
 		plot \
 			"Task_A1.dat" using 1:2 with lines lw 4 lc rgb "#1f77b4" title "Linear Interpolant S(x)", \
 			"Task_A1_points.dat" using 1:2 with points pt 7 ps 1 lc rgb "red" title "Data points", \
@@ -39,7 +41,7 @@ Task_A1.svg: Task_A1.dat Task_A1_points.dat
 
 Task_B1.svg: Task_B1.dat Task_B1_points.dat
 	echo '\
-		set terminal svg size 900,600 enhanced background rgb "white"; \
+		set terminal svg background rgb "white"; \
 		set output "Task_B1.svg"; \
 		set title "OOP: Quadratic Spline, cosine function"; \
 		set xlabel "x"; \
@@ -47,6 +49,8 @@ Task_B1.svg: Task_B1.dat Task_B1_points.dat
 		set ytics nomirror; \
 		set y2tics; \
 		set grid; \
+		set key outside bottom center horizontal; \
+		set bmargin 6; \
 		plot \
 			"Task_B1.dat" using 1:2 with lines lw 4 lc rgb "#1f77b4" title "Quadratic Interpolant S(x)", \
 			"Task_B1_points.dat" using 1:2 with points pt 7 ps 1 lc rgb "red" title "Data points", \
@@ -56,11 +60,11 @@ Task_B1.svg: Task_B1.dat Task_B1_points.dat
 
 Task_B_debug.svg: const.dat const_points.dat linear.dat linear_points.dat quadratic.dat quadratic_points.dat
 	echo '\
-		set terminal svg size 1000,1400 enhanced background rgb "white"; \
+		set terminal svg size 700,900 enhanced background rgb "white"; \
 		set output "Task_B_debug.svg"; \
 		set multiplot layout 3,1 title "Quadratic spline test cases"; \
 		set grid; \
-		set key top right; \
+		set key top left; \
 		set xrange [1:5]; \
 		set ytics nomirror; \
 		\
@@ -98,13 +102,13 @@ Task_C_cubic_points.dat Task_C_cubic_own.dat: $(TARGET)
 
 Task_C_cubic_comparison.svg: Task_C_cubic_points.dat Task_C_cubic_own.dat
 	echo '\
-		set terminal svg size 1000,700 enhanced background rgb "white"; \
+		set terminal svg background rgb "white"; \
 		set output "Task_C_cubic_comparison.svg"; \
 		set title "Cubic spline: own implementation vs gnuplot smooth csplines"; \
 		set xlabel "x"; \
 		set ylabel "y"; \
 		set grid; \
-		set key top right; \
+		set key top center; \
 		set samples 1000; \
 		plot \
 			"Task_C_cubic_own.dat" using 1:2 with lines lw 3 title "Own CubicSpline", \
