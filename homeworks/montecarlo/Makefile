@@ -15,12 +15,13 @@ Out.txt A_circle_errors.dat B_scaling.dat: main
 
 A_circle_errors.svg: A_circle_errors.dat
 	echo '\
-		set terminal svg size 1000,700 enhanced background rgb "white"; \
+		set terminal svg background rgb "white"; \
 		set output "A_circle_errors.svg"; \
 		set grid; \
 		set logscale xy; \
 		set xlabel "N"; \
-		set ylabel "error"; \
+		set ylabel "Error"; \
+		set yrange [0.001:0.3]; \
 		set title "Plain Monte Carlo error for unit circle"; \
 		set key bottom left; \
 		plot \
@@ -31,7 +32,7 @@ A_circle_errors.svg: A_circle_errors.dat
 
 B_scaling.svg: B_scaling.dat
 	echo '\
-		set terminal svg size 1000,700 enhanced background rgb "white"; \
+		set terminal svg background rgb "white"; \
 		set output "B_scaling.svg"; \
 		set grid; \
 		set logscale xy; \

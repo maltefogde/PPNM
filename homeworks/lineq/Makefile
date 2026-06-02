@@ -18,15 +18,19 @@ out.times.data: main
 
 times.svg: out.times.data
 	echo '\
-		set terminal svg size 700,500; \
+		set terminal svg background rgb "white"; \
 		set output "$@"; \
 		set xlabel "N"; \
-		set ylabel "time (s)"; \
+		set ylabel "Time (s)"; \
+		set xrange [90:510]; \
+		set xrange [90:510]; \
+		set key top left; \
 		f(x)=a*x**3; \
 		a=1e-8; \
+		set grid; \
 		fit f(x) "$<" using 1:2 via a; \
-		plot "$<" using 1:2 with points pt 7 title "data", \
-		     f(x) with lines lw 2 title "fit ~ N^3"; \
+		plot "$<" using 1:2 with points pt 7 title "Data", \
+		     f(x) with lines lw 2 title "N^3 fit"; \
 	' | gnuplot
 
 clean:
