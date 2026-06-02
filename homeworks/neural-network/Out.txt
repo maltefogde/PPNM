@@ -1,0 +1,28 @@
+
+------ TASK A: interpolation with neural network ------
+
+Function sampled on [-1,1]: cos(5*x-1)*exp(-x*x)
+Hidden neurons               = 8
+Final cost                   = 4.834461239358224e-06
+Gradient norm                = 9.970732829148955e-05
+Iterations                   = 12224
+Interpolation data written to A_interpolation.dat
+Plot can be found in A_interpolation.svg
+
+
+------ TASK B: derivatives and anti-derivative ------
+
+The Gaussian wavelet has analytic first derivative, second derivative and anti-derivative.
+Derivative data written to B_derivatives.dat
+Plot can be found in B_derivatives.svg
+
+
+------ TASK C: differential equation example ------
+
+Solving y''+y=0 on [0,pi] with y(0)=0 and y'(0)=1.
+Exact solution is sin(x).
+Final cost                   = 0.0004652315744067524
+Gradient norm                = 0.009988915503358719
+Iterations                   = 4827
+ODE data written to C_ode.dat
+Plot can be found in C_ode.svg
