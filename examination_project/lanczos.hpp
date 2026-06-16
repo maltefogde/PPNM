@@ -158,6 +158,4 @@ inline double tridiagonal_error(const matrix& T) {
     return error;
 }
 
-
-
 } // namespace lanczos

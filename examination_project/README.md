@@ -46,7 +46,7 @@ $$ |E_0(T_{50})-E_0(H)| \sim 10^{-5}. $$
 This shows that the Lanczos approximation has already converged well to the lowest eigenvalue of the discretized Hamiltonian on the scale relevant for the finite-difference error. The remaining difference from $-0.5$ is caused by the discretization of the continuum hydrogen problem and can be improved by decreasing $\Delta r$ and/or increasing $r_{\max}$.
 The convergence is shown in `hydrogen_convergence.svg`, where $E_0(T_n)$ approaches the full matrix value $E_0(H)$. The absolute Lanczos error is shown in `hydrogen_error.svg`. The approximately linear behaviour in the semi-logarithmic error plot indicates nearly exponential convergence of the lowest Lanczos eigenvalue. For larger $n$ obtained by increasing $n_\max$, the error is not expected to decrease indefinitely, since roundoff error and possible loss of orthogonality of the Lanczos vectors eventually become relevant. 
 
-The orthogonality error remained small in the tested range, including the additional test $n=100$. For much larger Krylov dimensions, loss of orthogonality can become relevant in finite precision, but this is not the limiting error in the results shown here.
+The orthogonality error remained small in the tested range, including the additional test $n=100$. For much larger Krylov dimensions, loss of orthogonality can become relevant in finite precision (as described in the book), but this is not the limiting error in the results shown here.
 
 
 ## Task C
@@ -68,6 +68,4 @@ $$ T'_{02}\neq0. $$
 
 Thus, a Jacobi rotation creates a nonzero element outside the tridiagonal band. In other words, the matrix no longer remains tridiagonal. This is also demonstrated numerically in `Out.txt`: the maximum non-tridiagonal element of $T$ is initially zero, but after one Jacobi rotation on neighbouring indices it becomes nonzero.
 
-Therefore, the standard Jacobi eigenvalue algorithm cannot be efficiently tuned to fully exploit the tridiagonal form. It can still diagonalize the matrix, but after the first rotations the matrix must essentially be treated as dense. 
-
-This does not mean that tridiagonalisation is useless for eigenvalue problems. The standard use of tridiagonalisation is instead to combine it with methods that preserve or exploit tridiagonal form, such as QR/QL methods for symmetric tridiagonal matrices. In contrast, ordinary cyclic Jacobi rotations destroy the tridiagonal sparsity pattern, as shown above, and therefore the matrix must essentially be treated as dense after the first rotations.
+Therefore, the standard Jacobi eigenvalue algorithm cannot be efficiently tuned to fully exploit the tridiagonal form. It can still diagonalize the matrix, but after the first rotations the matrix must essentially be treated as dense. This does not mean that tridiagonalisation is useless for eigenvalue problems. The standard use of tridiagonalisation is instead to combine it with methods that preserve or exploit tridiagonal form, such as the QR-diagonalisation method as described in the book.
