@@ -156,7 +156,7 @@ void compare_plain_and_cc(
 
         std::cout << "  ordinary integral = " << q_plain << "\n";
         std::cout << "  ordinary error    = " << error_plain << "\n";
-        std::cout << "  ordinary est err = " << result_plain.error << "\n";
+        std::cout << "  ordinary est err  = " << result_plain.error << "\n";
         std::cout << "  ordinary ncalls   = " << ncalls_plain << "\n";
         std::cout << "  ordinary status   = OK\n\n";
     } catch(const std::exception& e) {
@@ -182,9 +182,11 @@ void compare_plain_and_cc(
 
         std::cout << "  CC integral       = " << q_cc << "\n";
         std::cout << "  CC error          = " << error_cc << "\n";
-        std::cout << "  CC est err       = " << result_cc.error << "\n";
+        std::cout << "  CC est err        = " << result_cc.error << "\n";
         std::cout << "  CC ncalls         = " << ncalls_cc << "\n";
-        std::cout << "  CC status         = OK\n\n";
+        double goal_cc = acc + eps*std::abs(q_cc);
+        std::cout << "  CC status         = "
+                << (error_cc <= goal_cc ? "OK" : "NOT OK") << "\n\n";
     } catch(const std::exception& e) {
         std::cout << "  CC integral       = failed\n";
         std::cout << "  CC reason         = " << e.what() << "\n";

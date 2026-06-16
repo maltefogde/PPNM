@@ -3,6 +3,10 @@
 Test that QR works for tall matrices: generating a tall matrix and testing
 Q R = A:            true
 
+Proof that delta(ln y) = delta y / y:
+For g(y)=ln(y), standard error propagation gives delta g = |g'(y)| delta y.
+Since g'(y)=1/y, we get delta(ln y)=delta y/y.
+
 Investigate the law of radioactive decay:
 Results of the fit:
 a       = 142.404

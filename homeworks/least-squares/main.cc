@@ -110,7 +110,12 @@ int main(int argc, char** argv) {
         size_t m = 5;
         matrix A_taskA = random_tall_matrix(n, m);
         QRdec QR_taskA(A_taskA);
-        std::cout << "Q R = A:            " << approx(QR_taskA.Q*QR_taskA.R, A_taskA) << "\n";
+        std::cout << "Q R = A:            " << approx(QR_taskA.Q*QR_taskA.R, A_taskA) << "\n\n";
+
+        std::cout << "Proof that delta(ln y) = delta y / y:\n"
+          << "For g(y)=ln(y), standard error propagation gives "
+          << "delta g = |g'(y)| delta y.\n"
+          << "Since g'(y)=1/y, we get delta(ln y)=delta y/y.\n\n";
 
         auto fs = std::vector<pp::fitfunc>{
             [](double){ return 1.0; },
@@ -137,7 +142,7 @@ int main(int argc, char** argv) {
         double lambda = -c[1];
         double T12    = std::log(2.0)/lambda;
 
-        std::cout << "\nInvestigate the law of radioactive decay:\n";
+        std::cout << "Investigate the law of radioactive decay:\n";
         std::cout << "Results of the fit:\n";
         std::cout << "a       = " << a << "\n";
         std::cout << "lambda  = " << lambda << "\n";

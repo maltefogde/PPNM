@@ -121,8 +121,7 @@ integration_result integrate_cc_finite(
 
     auto g = [&f, center, halfwidth, a, b](double theta) {
         double x = center + halfwidth*std::cos(theta);
-        if(x <= a) x = std::nextafter(a, b);
-        if(x >= b) x = std::nextafter(b, a);
+        if(x <= a || x >= b) return 0.0;
         return f(x)*std::sin(theta)*halfwidth;
     };
 

@@ -119,13 +119,13 @@ Integral of 1/sqrt(x) from 0 to 1
 
   ordinary integral = 1.999999998949156
   ordinary error    = 1.050843856376105e-09
-  ordinary est err = 6.148833912907951e-07
+  ordinary est err  = 6.148833912907951e-07
   ordinary ncalls   = 123900
   ordinary status   = OK
 
   CC integral       = 1.99999999993764
   CC error          = 6.235989502556549e-11
-  CC est err       = 6.601397014681718e-07
+  CC est err        = 6.601397014681718e-07
   CC ncalls         = 352
   CC status         = OK
 
@@ -134,14 +134,14 @@ Integral of log(x)/sqrt(x) from 0 to 1
 
   ordinary integral = -3.999999999413053
   ordinary error    = 5.869473795883096e-10
-  ordinary est err = 6.137501566168838e-07
+  ordinary est err  = 6.137501566168838e-07
   ordinary ncalls   = 302996
   ordinary status   = OK
 
-  CC integral       = -1.146825699611089e+148
-  CC error          = 1.146825699611089e+148
-  CC est err       = 7.252811600152892e+139
-  CC ncalls         = 2004
+  CC integral       = -3.999999522222832
+  CC error          = 4.777771680508636e-07
+  CC est err        = 6.324913297093183e-07
+  CC ncalls         = 2000
   CC status         = OK
 
 Integral of 1/sqrt(1 - x) from 0 to 1
@@ -149,13 +149,13 @@ Integral of 1/sqrt(1 - x) from 0 to 1
 
   ordinary integral = 1.999999989935607
   ordinary error    = 1.006439309669815e-08
-  ordinary est err = 6.148833912952857e-07
+  ordinary est err  = 6.148833912952857e-07
   ordinary ncalls   = 5464
   ordinary status   = OK
 
   CC integral       = 1.999999999937642
   CC error          = 6.235789662412117e-11
-  CC est err       = 6.601397014811441e-07
+  CC est err        = 6.601397014811441e-07
   CC ncalls         = 352
   CC status         = OK
 
