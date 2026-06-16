@@ -24,6 +24,7 @@ inline bool is_square(const matrix& A) {
     return A.size1() == A.size2();
 }
 
+// "is_symmetric" is made using ChatGPT
 inline bool is_symmetric(const matrix& A, double tol = 1e-12) {
     if(!is_square(A)) return false;
 
@@ -39,6 +40,7 @@ inline bool is_symmetric(const matrix& A, double tol = 1e-12) {
 }
 
 // Implementing the standard version of the Lanczos algorithm
+// Initially "tridiagonalize" was written by myself before using ChatGPT to debug/optimize
 inline result tridiagonalize(const matrix& A, vector q, std::size_t nsteps,
                              double tol = 1e-14) {
     assert(is_square(A));
@@ -137,13 +139,12 @@ inline double max_abs_difference(const matrix& A, const matrix& B) {
 
 inline double orthogonality_error(const matrix& V) {
     const std::size_t m = V.size2();
-
     matrix I(static_cast<int>(m), static_cast<int>(m));
     I.setid();
-
     return max_abs_difference(V.transpose() * V, I);
 }
 
+// Initially "tridiagonal_error" was written by myself before using ChatGPT to debug/optimize
 inline double tridiagonal_error(const matrix& T) {
     assert(is_square(T));
 

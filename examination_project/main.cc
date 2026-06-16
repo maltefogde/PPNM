@@ -8,6 +8,7 @@
 
 #include "lanczos.hpp"
 
+// "random_symmetric_matrix" is made using ChatGPT
 lanczos::matrix random_symmetric_matrix(std::size_t n, unsigned seed = 1) {
     std::mt19937 gen(seed);
     std::uniform_real_distribution<double> dist(-1.0, 1.0);
@@ -22,6 +23,7 @@ lanczos::matrix random_symmetric_matrix(std::size_t n, unsigned seed = 1) {
     return A;
 }
 
+// "random_vector" is made using ChatGPT
 lanczos::vector random_vector(std::size_t n, unsigned seed = 2) {
     std::mt19937 gen(seed);
     std::uniform_real_distribution<double> dist(-1.0, 1.0);
@@ -126,6 +128,7 @@ lanczos::vector hydrogen_start_vector(std::size_t N, double dr) {
     return q;
 }
 
+// "main" was written by myself before using ChatGPT to optimize
 int main() {
     std::cout << std::setprecision(16);
 

@@ -69,3 +69,7 @@ $$ T'_{02}\neq0. $$
 Thus, a Jacobi rotation creates a nonzero element outside the tridiagonal band. In other words, the matrix no longer remains tridiagonal. This is also demonstrated numerically in `Out.txt`: the maximum non-tridiagonal element of $T$ is initially zero, but after one Jacobi rotation on neighbouring indices it becomes nonzero.
 
 Therefore, the standard Jacobi eigenvalue algorithm cannot be efficiently tuned to fully exploit the tridiagonal form. It can still diagonalize the matrix, but after the first rotations the matrix must essentially be treated as dense. This does not mean that tridiagonalisation is useless for eigenvalue problems. The standard use of tridiagonalisation is instead to combine it with methods that preserve or exploit tridiagonal form, such as the QR-diagonalisation method as described in the book.
+
+
+## AI
+"README.md" was written by myself before using ChatGPT to discuss and improve the text.
