@@ -11,38 +11,43 @@ The output in `Out.txt` shows that the Lanczos vectors are orthonormal to numeri
 
 $$ \max |V^T V-I| \sim 10^{-13}, $$
 
-for $N=8$., and that the projected matrix agrees with the computed tridiagonal matrix,
+for $N=8$, and that the projected matrix agrees with the computed tridiagonal matrix,
 
 $$ \max |V^T A V - T| \sim 10^{-13}. $$
 
 The output also shows that the maximum non-tridiagonal element of $T$ is zero. This confirms that the algorithm produces the expected tridiagonal representation.
+
+Note that matrix $T_n$ obtained for $n<N$ is the leading principal submatrix of the matrix $T_N$ obtained by continuing to $n=N$ such $T_n=V_n^TAV_n$ is the upper-left $n\times n$ block of $T_N$. This is shown in `Out.txt`.
 
 ## Task B
 I used the finite-difference discretization of the radial hydrogen Hamiltonian with
 
 $$ \Delta r = 0.1, \qquad r_{\max}=20, $$
 
-which gives a matrix size $N=200$. I then used the Lanczos algorithm to construct tridiagonal matrices $T_n$ of increasing size $n\leq 100$. I choose a starting vector $\vec{q}$ close to the exact solution for the algorithm to work more efficiently. For each $T_n$, I computed the lowest eigenvalue and compared it with the lowest eigenvalue of the full discretized Hamiltonian matrix $H$.
+which gives a matrix size $N=200$. I then used the Lanczos algorithm to construct tridiagonal matrices $T_n$ of increasing size $n\leq 50$ because the convergence is already clear in this interval. I also performed an additional numerical check at $n=100$, not included in the plot, to verify that the error continues to decrease beyond the plotted interval. I used a smooth hydrogen-like starting vector, $q_i=r_i e^{-r_i/2}$, that is not meant to be the exact ground-state vector. It is used to make the convergence easier to see. For each $T_n$, I computed the lowest eigenvalue and compared it with the lowest eigenvalue of the full discretized Hamiltonian matrix $H$.
 
 The full finite-difference Hamiltonian gives
 
-$$ E_0(H) = -0.4987562112088574, $$
+$$ E_0(H) = -0.498756211208868, $$
 
-whereas the exact continuum value is $ E_0 = -0.5. $ The difference
+whereas the exact continuum value is $E_0=-0.5$. The difference
 
-$$ |E_0(H)+0.5| = 0.001243788791142564 $$
+$$ |E_0(H)+0.5| = 0.001243788791131961 $$
 
 is therefore due to the finite-difference discretization, not the Lanczos algorithm.
-The best Lanczos result in `Out.txt` is obtained for $n=100$,
+The best Lanczos result in `Out.txt` is obtained for $n=50$,
 
-$$ E_0(T_{100}) = -0.4987562085704186, $$
+$$ E_0(T_{50}) = -0.4987314493158973, $$
 
 with Lanczos error
 
-$$ |E_0(T_{100})-E_0(H)| = 2.638438800772747\times 10^{-9}. $$
+$$ |E_0(T_{50})-E_0(H)| \sim 10^{-5}. $$
 
-This shows that the Lanczos approximation converges very accurately to the lowest eigenvalue of the discretized Hamiltonian. The remaining difference from $-0.5$ is caused by the discretization of the continuum hydrogen problem and can be improved by changing $\Delta r$ $r_{\max}=20$.
-The convergence is shown in `hydrogen_convergence.svg`, where $E_0(T_n)$ approaches the full matrix value $E_0(H)$. The absolute Lanczos error is shown in `hydrogen_error.svg`. The approximately linear behaviour in the semi-logarithmic error plot indicates nearly exponential convergence of the lowest Lanczos eigenvalue. This behaviour will continue for $n>100$ until the double-precision numerical accuracy is reached.
+This shows that the Lanczos approximation has already converged well to the lowest eigenvalue of the discretized Hamiltonian on the scale relevant for the finite-difference error. The remaining difference from $-0.5$ is caused by the discretization of the continuum hydrogen problem and can be improved by decreasing $\Delta r$ and/or increasing $r_{\max}$.
+The convergence is shown in `hydrogen_convergence.svg`, where $E_0(T_n)$ approaches the full matrix value $E_0(H)$. The absolute Lanczos error is shown in `hydrogen_error.svg`. The approximately linear behaviour in the semi-logarithmic error plot indicates nearly exponential convergence of the lowest Lanczos eigenvalue. For larger $n$ obtained by increasing $n_\max$, the error is not expected to decrease indefinitely, since roundoff error and possible loss of orthogonality of the Lanczos vectors eventually become relevant. 
+
+The orthogonality error remained small in the tested range, including the additional test $n=100$. For much larger Krylov dimensions, loss of orthogonality can become relevant in finite precision, but this is not the limiting error in the results shown here.
+
 
 ## Task C
 The Lanczos algorithm produces a tridiagonal matrix $T$. This might initially seem useful for the Jacobi eigenvalue algorithm, since only the diagonal and first off-diagonal elements are nonzero. One might therefore try to restrict the Jacobi rotations to neighbouring indices $(p,p+1)$ such that the computation becomes easier.
@@ -64,3 +69,5 @@ $$ T'_{02}\neq0. $$
 Thus, a Jacobi rotation creates a nonzero element outside the tridiagonal band. In other words, the matrix no longer remains tridiagonal. This is also demonstrated numerically in `Out.txt`: the maximum non-tridiagonal element of $T$ is initially zero, but after one Jacobi rotation on neighbouring indices it becomes nonzero.
 
 Therefore, the standard Jacobi eigenvalue algorithm cannot be efficiently tuned to fully exploit the tridiagonal form. It can still diagonalize the matrix, but after the first rotations the matrix must essentially be treated as dense. 
+
+This does not mean that tridiagonalisation is useless for eigenvalue problems. The standard use of tridiagonalisation is instead to combine it with methods that preserve or exploit tridiagonal form, such as QR/QL methods for symmetric tridiagonal matrices. In contrast, ordinary cyclic Jacobi rotations destroy the tridiagonal sparsity pattern, as shown above, and therefore the matrix must essentially be treated as dense after the first rotations.

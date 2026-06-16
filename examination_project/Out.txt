@@ -35,13 +35,19 @@ T for n < N:
 Hydrogen matrix size N = 200
 dr = 0.1, rmax = 20
 Exact continuum ground state energy = -0.5
-Full finite-difference ground state = -0.4987562112088574
-Discretization error |E_full + 0.5| = 0.001243788791142564
+Full finite-difference ground state = -0.498756211208868
+Discretization error |E_full + 0.5| = 0.001243788791131961
 
-Best Lanczos value = -0.4987562085704186
-Best Lanczos dimension n = 100
-Lanczos error |E0(T_n)-E_full| = 2.638438800772747e-09
-Total error |E0(T_n)+0.5| = 0.001243791429581365
+Chosen nmax                         = 50
+Best Lanczos dimension n            = 50
+Best Lanczos value                  = -0.4987314493158973
+Lanczos error |E0(T_n)-E_full|.     = 2.476189297073716e-05
+max |V^T V - I| at best n           = 1.936358906741041e-14
+Total error |E0(T_n)+0.5|           = 0.001268550684102698
+
+Additional convergence check at n   = 100
+|E0(T_n)-E0(H)| at check n          = 2.638449292380329e-09
+max |V^T V - I| at check n          = 2.360277257800302e-12
 
 Wrote convergence data to hydrogen_convergence.dat
 See convergence plot: hydrogen_convergence.svg 

@@ -97,7 +97,7 @@ inline result tridiagonalize(const matrix& A, vector q, std::size_t nsteps,
 
     const std::size_t m = basis.size();
 
-    // Constructing the orthogonalised Krylov matrix
+    // Constructing the Krylov basis matrix
     matrix V(static_cast<int>(N), static_cast<int>(m));
     for(std::size_t j = 0; j < m; ++j) {
         V[j] = basis[j];

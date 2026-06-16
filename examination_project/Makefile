@@ -21,7 +21,7 @@ hydrogen_convergence.svg: hydrogen_convergence.dat
 	set xlabel 'Lanczos dimension n'; \
 	set ylabel 'E_0(T_n)'; \
 	set yrange [-0.504:-0.38]; \
-	set xrange [0:50]; \
+	set xrange [0:52]; \
 	set ytics 0.02; \
 	set grid; \
 	set border lw 1.5; \
@@ -37,7 +37,7 @@ hydrogen_error.svg: hydrogen_convergence.dat
 	set xlabel 'Lanczos dimension n'; \
 	set ylabel '|E_0(T_n)-E_0(H)|'; \
 	set logscale y; \
-	set xrange [0:102]; \
+	set xrange [0:52]; \
 	set format y '10^{%L}'; \
 	set mytics 10; \
 	set grid; \
