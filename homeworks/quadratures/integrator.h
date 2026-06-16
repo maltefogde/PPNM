@@ -11,7 +11,7 @@ struct integration_result {
 
 // "integrate" written myself and improved using ChatGPT
 template<class F>
-integration_result integrate(
+integration_result integrate_rec(
     F& f,
     double a,
     double b,
@@ -50,16 +50,18 @@ integration_result integrate(
     double err = std::abs(Q - q);
     double tol = acc + eps*std::abs(Q);
 
+    if(!std::isfinite(Q) || !std::isfinite(q) || !std::isfinite(err)) {
+        throw std::runtime_error("integrate: non-finite function value");
+    }
+
     if(err < tol) {
         return {Q, err};
     }
 
     double m = 0.5*(a + b);
 
-    auto left = integrate(
-        f,
-        a,
-        m,
+    auto left = integrate_rec(
+        f, a, m,
         acc/std::sqrt(2.0),
         eps,
         f1,
@@ -67,10 +69,8 @@ integration_result integrate(
         depth + 1
     );
 
-    auto right = integrate(
-        f,
-        m,
-        b,
+    auto right = integrate_rec(
+        f, m, b,
         acc/std::sqrt(2.0),
         eps,
         f3,
@@ -82,6 +82,23 @@ integration_result integrate(
         left.value + right.value,
         std::sqrt(left.error*left.error + right.error*right.error)
     };
+}
+
+// "integrate" written myself and improved using ChatGPT
+template<class F>
+integration_result integrate(
+    F f,
+    double a,
+    double b,
+    double acc = 1e-3,
+    double eps = 1e-3
+) {
+    if(a > b) {
+        auto result = integrate(f, b, a, acc, eps);
+        return {-result.value, result.error};
+    }
+
+    return integrate_rec(f, a, b, acc, eps);
 }
 
 // "integrate_cc_finite" written myself and improved using ChatGPT
@@ -102,8 +119,10 @@ integration_result integrate_cc_finite(
     double center = 0.5*(a + b);
     double halfwidth = 0.5*(b - a);
 
-    auto g = [&f, center, halfwidth](double theta) {
+    auto g = [&f, center, halfwidth, a, b](double theta) {
         double x = center + halfwidth*std::cos(theta);
+        if(x <= a) x = std::nextafter(a, b);
+        if(x >= b) x = std::nextafter(b, a);
         return f(x)*std::sin(theta)*halfwidth;
     };
 

@@ -1,5 +1,6 @@
 CXXFLAGS += -std=c++23 -I. -Wall -Wextra -Werror
 LDLIBS += -lm
+TIME := $(shell if command -v gtime >/dev/null 2>&1; then echo gtime; else echo /usr/bin/time; fi)
 
 all: Out.txt out.times.data times.svg
 
@@ -12,7 +13,7 @@ Out.txt: main
 out.times.data: main
 	> $@
 	for N in $$(seq 100 50 500); do \
-		gtime --format "$$N %e" --output $@ --append \
+		$(TIME) --format "$$N %e" --output $@ --append \
 		./$< -size $$N 1>out 2>err ; \
 	done
 
@@ -22,7 +23,6 @@ times.svg: out.times.data
 		set output "$@"; \
 		set xlabel "N"; \
 		set ylabel "Time (s)"; \
-		set xrange [90:510]; \
 		set xrange [90:510]; \
 		set key top left; \
 		f(x)=a*x**3; \

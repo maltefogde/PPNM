@@ -1,30 +1,34 @@
 CXX      = clang++
 CXXFLAGS = -std=c++23 -O2 -I. -Wall -Wextra -Werror
 LDLIBS   = -lm
+TIME := $(shell if command -v gtime >/dev/null 2>&1; then echo gtime; else echo /usr/bin/time; fi)
 
 TARGET = main
 
 all: $(TARGET) run plots
 
-$(TARGET): main.cc matrix.h evd.h hydrogen_swave.h
+$(TARGET): main.cc ../lib/matrix.h evd.h hydrogen_swave.h
 	$(CXX) $(CXXFLAGS) main.cc -o $(TARGET) $(LDLIBS)
 
 run: $(TARGET)
-	./$(TARGET) -rmax 10 -dr 0.1 > Out.txt
+	./$(TARGET) -rmax 10 -dr 0.05 > Out.txt
 
 plots: wavefunctions.svg conv_dr.svg conv_rmax.svg taskC.svg
 
 wavefunctions.svg: hydrogen_wavefunctions.dat
 	echo '\
 		set terminal svg background rgb "white"; \
-		set output "wavefunctions.svg"; \
+		set output "$@"; \
 		set xlabel "r [a_0]"; \
 		set ylabel "f(r)"; \
 		set grid; \
 		set title "Hydrogen s-wave reduced radial wavefunctions"; \
-		plot "hydrogen_wavefunctions.dat" using 1:2 with lines lw 2 title "n=1", \
-		     "hydrogen_wavefunctions.dat" using 1:3 with lines lw 2 title "n=2", \
-		     "hydrogen_wavefunctions.dat" using 1:4 with lines lw 2 title "n=3"; \
+		plot "$<" using 1:2 with lines lw 2 title "n=1 numerical", \
+		     "$<" using 1:3 with lines lw 2 dt 2 title "n=1 exact", \
+		     "$<" using 1:4 with lines lw 2 title "n=2 numerical", \
+		     "$<" using 1:5 with lines lw 2 dt 2 title "n=2 exact", \
+		     "$<" using 1:6 with lines lw 2 title "n=3 numerical", \
+		     "$<" using 1:7 with lines lw 2 dt 2 title "n=3 exact"; \
 	' | gnuplot
 
 conv_dr.svg: hydrogen_conv_dr.dat
@@ -58,8 +62,6 @@ conv_rmax.svg: hydrogen_conv_rmax.dat
 	' | gnuplot
 
 # ---------------- TASK C ----------------
-GTIME = gtime --append --output $@ --format "%e"
-
 taskC-check: $(TARGET)
 	./$(TARGET) -taskC -n 50
 
@@ -67,8 +69,8 @@ taskC-times.dat: main Makefile
 	> slow.tmp
 	> fast.tmp
 	for N in $$(seq 20 10 120); do \
-		LC_ALL=C gtime --append --output slow.tmp --format "$$N %e" sh -c 'for i in $$(seq 1 20); do ./main -taskC -slow -n '"$$N"' > /dev/null; done'; \
-		LC_ALL=C gtime --append --output fast.tmp --format "$$N %e" sh -c 'for i in $$(seq 1 20); do ./main -taskC -fast -n '"$$N"' > /dev/null; done'; \
+		LC_ALL=C $(TIME) --append --output slow.tmp --format "$$N %e" sh -c 'for i in $$(seq 1 20); do ./main -taskC -slow -n '"$$N"' > /dev/null; done'; \
+		LC_ALL=C $(TIME) --append --output fast.tmp --format "$$N %e" sh -c 'for i in $$(seq 1 20); do ./main -taskC -fast -n '"$$N"' > /dev/null; done'; \
 	done
 	paste slow.tmp fast.tmp | LC_ALL=C awk 'NF>=4 { \
 		print $$1, $$2/20, $$4/20, $$2/$$4; \

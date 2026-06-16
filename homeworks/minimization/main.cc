@@ -181,7 +181,7 @@ int main(int argc, char** argv) {
     };
 
     if(do_taskA) {
-        std::cout << "\n------ TASK A: Newton minimization with forward finite differences ------\n\n";
+        std::cout << "\n------ TASK A ------\n\n";
 
         const minimize::result rosen = minimize::newton(
             rosenbrock,
@@ -207,7 +207,7 @@ int main(int argc, char** argv) {
     }
 
     if(do_taskB) {
-        std::cout << "\n\n------ TASK B: Higgs boson discovery fit ------\n\n";
+        std::cout << "\n\n------ TASK B ------\n\n";
 
         const minimize::result higgs = minimize::newton(
             deviation,
@@ -231,7 +231,7 @@ int main(int argc, char** argv) {
     }
 
     if(do_taskC) {
-        std::cout << "\n\n------ TASK C: central finite differences ------\n\n";
+        std::cout << "\n\n------ TASK C ------\n\n";
 
         const minimize::result rosen_forward = minimize::newton(
             rosenbrock,

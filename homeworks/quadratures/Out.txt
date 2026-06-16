@@ -138,10 +138,11 @@ Integral of log(x)/sqrt(x) from 0 to 1
   ordinary ncalls   = 302996
   ordinary status   = OK
 
-  CC integral       = failed
-  CC reason         = integrate: maximum recursion depth reached
-  CC ncalls         = 201960
-  CC status         = NOT OK
+  CC integral       = -1.146825699611089e+148
+  CC error          = 1.146825699611089e+148
+  CC est err       = 7.252811600152892e+139
+  CC ncalls         = 2004
+  CC status         = OK
 
 Integral of 1/sqrt(1 - x) from 0 to 1
   exact = 2

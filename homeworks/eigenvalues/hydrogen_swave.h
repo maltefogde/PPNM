@@ -7,7 +7,7 @@
 #include <algorithm>
 #include <stdexcept>
 
-#include "matrix.h"
+#include "../lib/matrix.h"
 #include "evd.h"
 
 namespace pp {
@@ -50,6 +50,17 @@ inline std::vector<int> sort_indices(const vector& w) {
     return idx;
 }
 
+inline double hydrogen_exact_f(int n, double r) {
+    if(n == 1) return 2*r*std::exp(-r);
+    if(n == 2) {
+        return r*(2-r)*std::exp(-r/2)/(2*std::sqrt(2));
+    }
+    if(n == 3) {
+        return 2*r*(27 - 18*r + 2*r*r)*std::exp(-r/3)/(81*std::sqrt(3));
+    }
+    return 0.0;
+}
+
 inline void print_hydrogen_energies(const vector& w, int nstates=3) {
     auto idx = sort_indices(w);
     std::cout << "\nLowest hydrogen s-wave energies (atomic units):\n";
@@ -74,19 +85,41 @@ inline void save_hydrogen_wavefunctions(
     int nstates=3
 ){
     auto idx = sort_indices(w);
+    int m = std::min(nstates, (int)idx.size());
+
     double c = 1.0/std::sqrt(dr);
+
+    std::vector<double> sign(m, 1.0);
+
+    // Eigenvectors have arbitrary sign. This flips them to match the analytical functions.
+    for(int k = 0; k < m; ++k) {
+        double overlap = 0.0;
+        for(size_t i = 0; i < r.size(); ++i) {
+            double fnum = c*V(i, idx[k]);
+            double fex  = hydrogen_exact_f(k+1, r[i]);
+            overlap += fnum*fex*dr;
+        }
+        if(overlap < 0) sign[k] = -1.0;
+    }
 
     std::ofstream out(filename);
     out << std::setprecision(10);
     out << "# r";
-    for(int k = 0; k < nstates && k < (int)idx.size(); ++k) out << " f" << (k+1);
+    for(int k = 0; k < m; ++k) {
+        out << " f" << (k+1) << "_num"
+            << " f" << (k+1) << "_exact";
+    }
     out << "\n";
 
     for(size_t i = 0; i < r.size(); ++i) {
         out << r[i];
-        for(int k = 0; k < nstates && k < (int)idx.size(); ++k) {
-            out << " " << c*V(i, idx[k]);
+
+        for(int k = 0; k < m; ++k) {
+            double fnum = sign[k]*c*V(i, idx[k]);
+            double fex  = hydrogen_exact_f(k+1, r[i]);
+            out << " " << fnum << " " << fex;
         }
+
         out << "\n";
     }
 }

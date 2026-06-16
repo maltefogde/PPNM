@@ -1,5 +1,6 @@
 #pragma once
-#include "matrix.h"
+
+#include "../lib/matrix.h"
 #include <cmath>
 
 namespace pp {

@@ -1,6 +1,7 @@
 #include <iostream>
 #include <random>
 #include <string>
+#include <cstring>
 #include <cmath>
 #include "matrix.h"
 #include "qr.h"

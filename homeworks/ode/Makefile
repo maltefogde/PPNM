@@ -8,7 +8,7 @@ all: Out.txt \
      Task_B_orbits.svg \
      Task_C_figure8.svg
 
-main: main.cc ode.h vec.h
+main: main.cc ode.h ../lib/vec.h
 	$(CXX) $(CXXFLAGS) main.cc -o main
 
 Out.txt \

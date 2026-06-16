@@ -5,9 +5,10 @@
 #include <ctime>
 #include <cstring>
 #include <vector>
+#include <numeric>
 #include <algorithm>
 
-#include "matrix.h"
+#include "../lib/matrix.h"
 #include "evd.h"
 #include "hydrogen_swave.h"
 
@@ -51,6 +52,16 @@ inline bool approx(const matrix& A, const matrix& B, double acc=1e-6, double eps
     return true;
 }
 
+double max_abs_diff(const matrix& A, const matrix& B){
+    double m = 0;
+    for(size_t i = 0; i < A.size1(); i++){
+        for(size_t j = 0; j < A.size2(); j++){
+            m = std::max(m, std::abs(A(i,j) - B(i,j)));
+        }
+    }
+    return m;
+}
+
 double max_abs_diff(const vector& a, const vector& b){
     double m = 0;
     for(size_t i = 0; i < a.size(); i++){
@@ -62,6 +73,31 @@ double max_abs_diff(const vector& a, const vector& b){
 
 void sort_vector(vector& v){
     std::sort(v.data.begin(), v.data.end());
+}
+
+void sort_eigenpairs(vector& w, matrix& V){
+    size_t n = w.size();
+
+    std::vector<size_t> idx(n);
+    std::iota(idx.begin(), idx.end(), 0);
+
+    std::sort(idx.begin(), idx.end(), [&](size_t i, size_t j){
+        return w[i] < w[j];
+    });
+
+    vector w_sorted(n);
+    matrix V_sorted((int)V.size1(), (int)V.size2());
+
+    for(size_t k = 0; k < n; k++){
+        size_t old = idx[k];
+        w_sorted[k] = w[old];
+        for(size_t i = 0; i < V.size1(); i++){
+            V_sorted(i,k) = V(i,old);
+        }
+    }
+
+    w = w_sorted;
+    V = V_sorted;
 }
 
 } // namespace pp
@@ -79,7 +115,7 @@ int main(int argc, char** argv) {
     bool run_fast = false;
 
     double rmax = 10.0;
-    double dr   = 0.1;
+    double dr   = 0.05;
     int N = 50;
 
     for(int i = 1; i < argc; ++i) {
@@ -117,6 +153,7 @@ int main(int argc, char** argv) {
         EVD_slow evd(A_taskA);
         matrix V = evd.V;
         vector w = evd.w;
+        sort_eigenpairs(w, V);
         matrix D = diag(w);
 
         matrix VT = V.T();
@@ -138,10 +175,16 @@ int main(int argc, char** argv) {
 
         std::cout << "\nChecking if the implementation works as intended:\n";
         std::cout << std::boolalpha;
-        std::cout << "V^T A V = D:          " << approx(VTAV,D) << "\n";
-        std::cout << "V D V^T = A:          " << approx(VDVT,A_taskA) << "\n";
-        std::cout << "V^T V = I:            " << approx(VTV, I) << "\n";
-        std::cout << "V V^T = I:            " << approx(VVT, I) << "\n";
+        std::cout << "max|V^T A V - D| = " << max_abs_diff(VTAV,D) << "\n";
+        std::cout << "max|V D V^T - A| = " << max_abs_diff(VDVT,A_taskA) << "\n";
+        std::cout << "max|V^T V - I|   = " << max_abs_diff(VTV,I) << "\n";
+        std::cout << "max|V V^T - I|   = " << max_abs_diff(VVT,I) << "\n";
+
+        std::cout << "\nBoolean checks:\n";
+        std::cout << "V^T A V = D: " << approx(VTAV,D) << "\n";
+        std::cout << "V D V^T = A: " << approx(VDVT,A_taskA) << "\n";
+        std::cout << "V^T V = I:   " << approx(VTV,I) << "\n";
+        std::cout << "V V^T = I:   " << approx(VVT,I) << "\n";
     }
 
     if(do_taskB) {
@@ -162,7 +205,9 @@ int main(int argc, char** argv) {
 
         std::cout << "\nPart 2: Numerical hydrogen Hamiltonian\n";
         std::cout << "Using rmax = " << rmax << " and dr = " << dr << "\n";
-        std::cout << "See wavefunctions.svg.\n";
+        std::cout << "The ground-state wavefunction is compared with the analytical result in wavefunctions.svg.\n\n";
+        std::cout << "The numerical ground-state wavefunction agrees well with the analytical f_1(r)=2r exp(-r).\n";
+        std::cout << "Excited states require larger rmax because they extend beyond rmax=10.\n";
 
         vector r;
         matrix H = hydrogen_hamiltonian(rmax, dr, r);
@@ -170,6 +215,7 @@ int main(int argc, char** argv) {
         EVD_slow hevd(H);
         vector hw = hevd.w;
         matrix HV = hevd.V;
+        sort_eigenpairs(hw, HV);
 
         print_hydrogen_energies(hw, 3);
         save_hydrogen_wavefunctions("hydrogen_wavefunctions.dat", r, HV, hw, dr, 3);
@@ -183,7 +229,7 @@ int main(int argc, char** argv) {
         save_convergence_vs_rmax("hydrogen_conv_rmax.dat", 0.05, rmax_values);
 
         std::cout << "Saved convergence data to hydrogen_conv_dr.dat and hydrogen_conv_rmax.dat\n";
-        std::cout << "See conv_dr.svg and conv_rmax.svg\n";
+        std::cout << "See conv_dr.svg and conv_rmax.svg\n\n";;
     }
 
     if(do_taskC) {
@@ -210,8 +256,17 @@ int main(int argc, char** argv) {
         sort_vector(wslow);
         sort_vector(wfast);
 
+        matrix Vf = fast.V;
+        vector wf = fast.w;
+        matrix Df = diag(wf);
+        matrix If = identity(N);
+        std::cout << "Fast max|V^T A V - D| = "
+                << max_abs_diff(Vf.T()*A_taskC*Vf, Df) << "\n";
+        std::cout << "Fast max|V^T V - I|   = "
+                << max_abs_diff(Vf.T()*Vf, If) << "\n";
+
         std::cout << std::setprecision(10);
-        std::cout << "Compare EVD_slow and EVD_fast\n";
+        std::cout << "\nCompare EVD_slow and EVD_fast\n";
         std::cout << "N = " << N << "\n";
         std::cout << "max |w_slow - w_fast| = " << max_abs_diff(wslow, wfast) << "\n";
         std::cout << "See taskC.svg";
