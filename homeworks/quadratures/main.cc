@@ -17,6 +17,7 @@ struct IntegralTest {
     double exact;
 };
 
+// "test_integral" written using ChatGPT
 template<class F>
 void test_integral(
     const std::string& name,
@@ -56,6 +57,7 @@ void test_integral(
     }
 }
 
+// "erf_integral" written myself and improved using ChatGPT
 double erf_integral(double z, double acc = 1e-6, double eps = 1e-6) {
     const double factor = 2.0/std::sqrt(pi);
 
@@ -88,6 +90,7 @@ double erf_integral(double z, double acc = 1e-6, double eps = 1e-6) {
     return 1.0 - factor*integrate(tail, 0.0, 1.0, acc/factor, eps).value;
 }
 
+// "write_erf_data" written using ChatGPT
 void write_erf_data() {
     std::ofstream file("erf.dat");
 
@@ -104,6 +107,7 @@ void write_erf_data() {
     std::cout << "Wrote erf.dat\n";
 }
 
+// "write_erf_accuracy_data" written using ChatGPT
 void write_erf_accuracy_data() {
     std::ofstream file("erf_acc.dat");
 
@@ -122,6 +126,7 @@ void write_erf_accuracy_data() {
     std::cout << "Wrote erf_acc.dat\n";
 }
 
+// "compare_plain_and_cc" written myself and improved using ChatGPT
 template<class F>
 void compare_plain_and_cc(
     const std::string& name,
@@ -188,6 +193,7 @@ void compare_plain_and_cc(
     }
 }
 
+// "test_infinite_integral" written using ChatGPT
 template<class F>
 void test_infinite_integral(
     const std::string& name,
@@ -226,6 +232,7 @@ void test_infinite_integral(
     }
 }
 
+// "test_error_estimate" written using ChatGPT
 template<class F>
 void test_error_estimate(
     const std::string& name,

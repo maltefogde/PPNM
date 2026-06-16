@@ -40,6 +40,7 @@ double singular_integrand(const std::vector<double>& x) {
     return 1.0 / (1.0 - cx * cy * cz);
 }
 
+// "loglog_slope" written myself and improved using ChatGPT
 double loglog_slope(const std::vector<double>& xs, const std::vector<double>& ys) {
     double sx = 0.0;   // sum of log(x)
     double sy = 0.0;   // sum of log(y)
@@ -65,6 +66,7 @@ double loglog_slope(const std::vector<double>& xs, const std::vector<double>& ys
     return (nd * sxy - sx * sy) / (nd * sxx - sx * sx); // Just standard least squares
 }
 
+// "main" written myself and improved using ChatGPT
 int main(int argc, char** argv) {
     bool do_taskA = false;
     bool do_taskB = false;

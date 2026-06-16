@@ -13,6 +13,7 @@ struct result {
     double error;
 };
 
+// "lcg" written using ChatGPT
 class lcg {
 private:
     std::uint64_t seed;
@@ -35,7 +36,7 @@ public:
     }
 };
 
-
+// "std_rng" written using ChatGPT
 class std_rng {
 private:
     std::mt19937 gen;
@@ -49,6 +50,7 @@ public:
     }
 };
 
+// "plainmc" written myself and improved using ChatGPT
 template<class F, class RNG>
 result plainmc(F f, const std::vector<double>& a, const std::vector<double>& b,
                std::size_t N, RNG& rng) {
@@ -147,6 +149,7 @@ public:
     }
 };
 
+// "quasimc" written myself and improved using ChatGPT
 template<class F>
 result quasimc(F f, const std::vector<double>& a, const std::vector<double>& b,
                std::size_t N) {
@@ -194,6 +197,7 @@ result quasimc(F f, const std::vector<double>& a, const std::vector<double>& b,
     };
 }
 
+// "stratified" written myself and improved using ChatGPT
 template<class F, class RNG>
 result stratified(F f, const std::vector<double>& a, const std::vector<double>& b,
                   std::size_t N, RNG& rng, std::size_t nmin = 64) {

@@ -9,6 +9,7 @@ struct integration_result {
     double error;
 };
 
+// "integrate" written myself and improved using ChatGPT
 template<class F>
 integration_result integrate(
     F& f,
@@ -83,6 +84,7 @@ integration_result integrate(
     };
 }
 
+// "integrate_cc_finite" written myself and improved using ChatGPT
 template<class F>
 integration_result integrate_cc_finite(
     F& f,
@@ -108,6 +110,7 @@ integration_result integrate_cc_finite(
     return integrate(g, 0.0, pi, acc, eps);
 }
 
+// "integrate_cc" written myself and improved using ChatGPT
 template<class F>
 integration_result integrate_cc(
     F& f,

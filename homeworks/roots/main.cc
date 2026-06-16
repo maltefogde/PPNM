@@ -59,6 +59,7 @@ double himmelblau(const roots::vector& x) {
          + (X + Y * Y - 7.0) * (X + Y * Y - 7.0);
 }
 
+// "hydrogen_energy" written using ChatGPT
 roots::newton_result hydrogen_energy(double rmin, double rmax,
                                      double ode_acc, double ode_eps) {
     const auto M = [rmin, rmax, ode_acc, ode_eps](const roots::vector& x) {
@@ -77,6 +78,7 @@ roots::newton_result hydrogen_energy(double rmin, double rmax,
     );
 }
 
+// "main" written using ChatGPT
 int main(int argc, char** argv) {
     bool do_taskA = false;
     bool do_taskB = false;

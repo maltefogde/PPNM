@@ -10,6 +10,7 @@
 
 #include "minimize.hpp"
 
+// All functions before main are written using ChatGPT
 struct higgs_data {
     std::vector<double> energy;
     std::vector<double> signal;
@@ -138,6 +139,7 @@ void write_higgs_fit(const minimize::result& fit) {
     }
 }
 
+// "main" written myself and improved using ChatGPT
 int main(int argc, char** argv) {
     bool do_taskA = false;
     bool do_taskB = false;

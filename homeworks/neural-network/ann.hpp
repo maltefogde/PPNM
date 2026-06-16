@@ -50,6 +50,7 @@ inline void project_widths(vector& p) {
     }
 }
 
+// Improved "minimize" using ChatGPT
 template<class CostGradient>
 minimize_result minimize(vector& p, CostGradient cost_gradient,
                          double acc = 1e-6,
@@ -98,6 +99,7 @@ minimize_result minimize(vector& p, CostGradient cost_gradient,
     return {cost, gnorm, max_iter, gnorm < acc};
 }
 
+// Improved "network" using ChatGPT
 struct network {
     int n;
     vector p;

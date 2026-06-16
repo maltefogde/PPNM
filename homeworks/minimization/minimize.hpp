@@ -51,6 +51,7 @@ inline double dot(const vector& a, const vector& b) {
     return sum;
 }
 
+// "symmetrize" written using ChatGPT
 inline void symmetrize(matrix& A) {
     const std::size_t n = A.size1();
 
@@ -63,6 +64,7 @@ inline void symmetrize(matrix& A) {
     }
 }
 
+// "gradient_forward" written using ChatGPT
 template<class F>
 vector gradient_forward(F phi, const vector& x) {
     const std::size_t n = x.size();
@@ -82,7 +84,7 @@ vector gradient_forward(F phi, const vector& x) {
 
     return g;
 }
-
+// "hessian_forward" written using ChatGPT
 template<class F>
 matrix hessian_forward(F phi, const vector& x) {
     const std::size_t n = x.size();
@@ -118,7 +120,7 @@ derivatives derivatives_forward(F phi, const vector& x) {
         hessian_forward(phi, x)
     };
 }
-
+// "derivatives_central" written using ChatGPT
 template<class F>
 derivatives derivatives_central(F phi, const vector& x) {
     const std::size_t n = x.size();
@@ -183,6 +185,7 @@ derivatives derivatives_central(F phi, const vector& x) {
     return {g, H};
 }
 
+// "evaluate_derivatives" written using ChatGPT
 template<class F>
 derivatives evaluate_derivatives(F phi, const vector& x, method derivative_method) {
     if(derivative_method == method::central) {
@@ -199,6 +202,7 @@ inline vector negative(const vector& x) {
     return y;
 }
 
+// "linesearch" written using ChatGPT
 template<class F>
 bool linesearch(F phi,
                 const vector& x,
@@ -222,6 +226,7 @@ bool linesearch(F phi,
     return false;
 }
 
+// "newton" written myself and improved using ChatGPT
 template<class F>
 result newton(F phi,
               vector x,

@@ -42,6 +42,7 @@ inline vector default_dx(const vector& x) {
     return dx;
 }
 
+// "jacobian" written using ChatGPT
 template<class F>
 void jacobian(F f, const vector& x, const vector& fx,
               const vector& dx, matrix& J) {
@@ -61,6 +62,7 @@ void jacobian(F f, const vector& x, const vector& fx,
     }
 }
 
+// "newton" written myself and improved using ChatGPT
 template<class F>
 newton_result newton(F f, vector x, double acc = 1e-2,
                      double alpha_min = 1e-3,
@@ -148,6 +150,8 @@ newton_result newton(F f, vector x, double acc = 1e-2,
     return {x, fx_norm, max_iter, fx_norm < acc};
 }
 
+
+// "newton" written using ChatGPT
 inline double hydrogen_M(double E, double rmin, double rmax,
                          double acc = 1e-6,
                          double eps = 1e-6,
@@ -181,6 +185,8 @@ inline double hydrogen_M(double E, double rmin, double rmax,
     return ylist.back()[0];
 }
 
+
+// "hydrogen_result" written using ChatGPT
 inline hydrogen_result hydrogen_wavefunction(double E, double rmin, double rmax,
                                              double acc = 1e-6,
                                              double eps = 1e-6,

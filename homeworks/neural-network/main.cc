@@ -22,6 +22,7 @@ double gpp(double x) {
                                + 20.0 * x * std::sin(5.0 * x - 1.0));
 }
 
+// "main" written using ChatGPT
 int main(int argc, char** argv) {
     bool do_taskA = false;
     bool do_taskB = false;
