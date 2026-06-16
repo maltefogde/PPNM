@@ -57,63 +57,151 @@ lanczos::matrix hydrogen_hamiltonian(std::size_t N, double dr) {
     return H;
 }
 
-double lowest_eigenvalue(lanczos::matrix A) {
+struct jacobi_result {
+    lanczos::vector w;
+    std::size_t sweeps;
+    std::size_t rotations;
+    std::size_t inspected_pairs;
+    double offdiag_norm;
+};
+
+double offdiag_norm(const lanczos::matrix& A) {
     const std::size_t n = A.size1();
+
+    double sum = 0.0;
+
+    for(std::size_t i = 0; i < n; ++i) {
+        for(std::size_t j = i + 1; j < n; ++j) {
+            sum += 2.0 * A(i,j) * A(i,j);
+        }
+    }
+
+    return std::sqrt(sum);
+}
+
+jacobi_result jacobi(lanczos::matrix A, std::size_t nvals = 0) {
+    const std::size_t n = A.size1();
+    if(nvals == 0) nvals = n;
+
     const double tol = 1e-12;
-    const std::size_t max_sweeps = 100 * n * n;
 
-    for(std::size_t sweep = 0; sweep < max_sweeps; ++sweep) {
-        bool changed = false;
+    std::size_t sweeps = 0;
+    std::size_t rotations = 0;
+    std::size_t inspected_pairs = 0;
 
-        for(std::size_t p = 0; p < n; ++p) {
+    bool changed;
+
+    do {
+        changed = false;
+        ++sweeps;
+
+        for(std::size_t p = 0; p < nvals; ++p) {
             for(std::size_t q = p + 1; q < n; ++q) {
+                ++inspected_pairs;
+
+                const double app = A(p,p);
+                const double aqq = A(q,q);
                 const double apq = A(p,q);
 
                 if(std::abs(apq) < tol) continue;
 
-                const double app = A(p,p);
-                const double aqq = A(q,q);
+                const double phi = 0.5 * std::atan2(2.0 * apq, aqq - app);
+                const double c = std::cos(phi);
+                const double s = std::sin(phi);
 
-                const double tau = (aqq - app) / (2.0 * apq);
-                const double t = (tau >= 0.0)
-                    ? 1.0 / (tau + std::sqrt(1.0 + tau * tau))
-                    : -1.0 / (-tau + std::sqrt(1.0 + tau * tau));
+                const double app1 = c * c * app - 2.0 * s * c * apq + s * s * aqq;
+                const double aqq1 = s * s * app + 2.0 * s * c * apq + c * c * aqq;
 
-                const double c = 1.0 / std::sqrt(1.0 + t * t);
-                const double s = t * c;
+                if(app1 != app || aqq1 != aqq) {
+                    changed = true;
+                    ++rotations;
 
-                A(p,p) = app - t * apq;
-                A(q,q) = aqq + t * apq;
-                A(p,q) = 0.0;
-                A(q,p) = 0.0;
+                    A(p,p) = app1;
+                    A(q,q) = aqq1;
+                    A(p,q) = 0.0;
 
-                for(std::size_t i = 0; i < n; ++i) {
-                    if(i == p || i == q) continue;
+                    for(std::size_t i = 0; i < p; ++i) {
+                        const double aip = A(i,p);
+                        const double aiq = A(i,q);
 
-                    const double aip = A(i,p);
-                    const double aiq = A(i,q);
+                        A(i,p) = c * aip - s * aiq;
+                        A(i,q) = c * aiq + s * aip;
+                    }
 
-                    A(i,p) = c * aip - s * aiq;
-                    A(p,i) = A(i,p);
+                    for(std::size_t i = p + 1; i < q; ++i) {
+                        const double api = A(p,i);
+                        const double aiq = A(i,q);
 
-                    A(i,q) = s * aip + c * aiq;
-                    A(q,i) = A(i,q);
+                        A(p,i) = c * api - s * aiq;
+                        A(i,q) = c * aiq + s * api;
+                    }
+
+                    for(std::size_t i = q + 1; i < n; ++i) {
+                        const double api = A(p,i);
+                        const double aqi = A(q,i);
+
+                        A(p,i) = c * api - s * aqi;
+                        A(q,i) = c * aqi + s * api;
+                    }
                 }
-
-                changed = true;
             }
         }
 
-        if(!changed) break;
+    } while(changed);
+
+    lanczos::vector w(n);
+    for(std::size_t i = 0; i < n; ++i) {
+        w[i] = A(i,i);
     }
 
-    double Emin = A(0,0);
-    for(std::size_t i = 1; i < n; ++i) {
-        Emin = std::min(Emin, A(i,i));
+    return {w, sweeps, rotations, inspected_pairs, offdiag_norm(A)};
+}
+
+double lowest_eigenvalue(lanczos::matrix A) {
+    const auto res = jacobi(A);
+
+    double Emin = res.w[0];
+
+    for(std::size_t i = 1; i < res.w.size(); ++i) {
+        Emin = std::min(Emin, res.w[i]);
     }
 
     return Emin;
 }
+
+lanczos::matrix one_jacobi_rotation(lanczos::matrix A, std::size_t p, std::size_t q) {
+    const double app = A(p,p);
+    const double aqq = A(q,q);
+    const double apq = A(p,q);
+
+    const double phi = 0.5 * std::atan2(2.0 * apq, aqq - app);
+    const double c = std::cos(phi);
+    const double s = std::sin(phi);
+
+    const std::size_t n = A.size1();
+
+    for(std::size_t i = 0; i < n; ++i) {
+        if(i == p || i == q) continue;
+
+        const double aip = A(i,p);
+        const double aiq = A(i,q);
+
+        A(i,p) = c * aip - s * aiq;
+        A(p,i) = A(i,p);
+
+        A(i,q) = s * aip + c * aiq;
+        A(q,i) = A(i,q);
+    }
+
+    A(p,p) = c * c * app - 2.0 * s * c * apq + s * s * aqq;
+    A(q,q) = s * s * app + 2.0 * s * c * apq + c * c * aqq;
+
+    A(p,q) = 0.0;
+    A(q,p) = 0.0;
+
+    return A;
+}
+
 
 lanczos::vector hydrogen_start_vector(std::size_t N, double dr) {
     lanczos::vector q(N);
@@ -226,6 +314,24 @@ int main() {
     std::cout << "Wrote convergence data to hydrogen_convergence.dat\n";
     std::cout << "See convergence plot: hydrogen_convergence.svg \n";
     std::cout << "See error plot: hydrogen_error.svg \n\n";
+
+
+    std::cout << "\n\n------ TASK C ------\n";
+
+    const std::size_t nC = 8;
+    const auto resC = lanczos::tridiagonalize(H, qh, nC);
+
+    const double before = lanczos::tridiagonal_error(resC.T);
+
+    const lanczos::matrix T_rotated = one_jacobi_rotation(resC.T, 0, 1);
+
+    const double after = lanczos::tridiagonal_error(T_rotated);
+
+    std::cout << "Testing one Jacobi rotation on Lanczos tridiagonal matrix T\n";
+    std::cout << "Lanczos dimension n = " << nC << "\n";
+    std::cout << "Initial max non-tridiagonal element  = " << before << "\n\n";
+    std::cout << "After rotation on indices (0,1):\n";
+    std::cout << "max non-tridiagonal element          = " << after << "\n";
 
     return 0;
 }
