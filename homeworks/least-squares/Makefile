@@ -6,7 +6,7 @@ TARGET = main
 
 all: $(TARGET) run plots
 
-$(TARGET): main.cc matrix.h qr.h lsfit.h
+$(TARGET): main.cc ../lib/matrix.h ../lib/qr.h lsfit.h
 	$(CXX) $(CXXFLAGS) main.cc -o $(TARGET) $(LDLIBS)
 
 run: $(TARGET)

@@ -4,7 +4,7 @@ TIME := $(shell if command -v gtime >/dev/null 2>&1; then echo gtime; else echo 
 
 all: Out.txt out.times.data times.svg
 
-main: main.cc matrix.h qr.h
+main: main.cc ../lib/matrix.h ../lib/qr.h
 	$(CXX) $(CXXFLAGS) main.cc -o main $(LDLIBS)
 
 Out.txt: main

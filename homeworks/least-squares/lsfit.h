@@ -5,8 +5,8 @@
 #include <cmath>
 #include <cassert>
 
-#include "matrix.h"
-#include "qr.h"
+#include "../lib/matrix.h"
+#include "../lib/qr.h"
 
 namespace pp {
 

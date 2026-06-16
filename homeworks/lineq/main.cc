@@ -3,8 +3,9 @@
 #include <string>
 #include <cstring>
 #include <cmath>
-#include "matrix.h"
-#include "qr.h"
+
+#include "../lib/matrix.h"
+#include "../lib/qr.h"
 
 using namespace pp;
 
@@ -60,6 +61,7 @@ vector random_vector(int n, std::mt19937& rng){
 }
 
 int main(int argc, char** argv){
+	std::cout << std::boolalpha;
     std::mt19937 rng(1);
 
 	for(int i=1; i<argc-1; i++){
