@@ -274,7 +274,7 @@ int main() {
     std::ofstream data("hydrogen_convergence.dat");
     data << "# n E0_Lanczos abs_error_to_full abs_error_to_exact\n";
 
-    const std::size_t nmax = std::min<std::size_t>(Nh, 80);
+    const std::size_t nmax = std::min<std::size_t>(Nh, 100);
 
     double best_E0 = 0.0;
     double best_error_full = std::numeric_limits<double>::infinity();

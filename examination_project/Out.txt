@@ -38,10 +38,10 @@ Exact continuum ground state energy = -0.5
 Full finite-difference ground state = -0.4987562112088574
 Discretization error |E_full + 0.5| = 0.001243788791142564
 
-Best Lanczos value = -0.4987561060734778
-Best Lanczos dimension n = 80
-Lanczos error |E0(T_n)-E_full| = 1.051353796244214e-07
-Total error |E0(T_n)+0.5| = 0.001243893926522188
+Best Lanczos value = -0.4987562085704186
+Best Lanczos dimension n = 100
+Lanczos error |E0(T_n)-E_full| = 2.638438800772747e-09
+Total error |E0(T_n)+0.5| = 0.001243791429581365
 
 Wrote convergence data to hydrogen_convergence.dat
 See convergence plot: hydrogen_convergence.svg 
