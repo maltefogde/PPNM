@@ -7,7 +7,7 @@
 #include <vector>
 
 #include "../lib/qr.h"
-#include "../ode/ode.h"
+#include "../5-ode/ode.h"
 
 namespace roots {
 

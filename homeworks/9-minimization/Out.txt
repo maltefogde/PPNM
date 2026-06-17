@@ -1,5 +1,5 @@
 
------- TASK A: Newton minimization with forward finite differences ------
+------ TASK A ------
 
 Rosenbrock valley function
 method = forward, iterations = 23, evals = 341, results:
@@ -16,7 +16,7 @@ method = forward, iterations = 5, evals = 83, results:
 One exact minimum = { 3, 2 }
 
 
------- TASK B: Higgs boson discovery fit ------
+------ TASK B ------
 
 method = forward, iterations = 12, evals = 291, results:
    f(x) =    26.8695117787
@@ -32,7 +32,7 @@ Data written to higgs_data.dat and higgs_fit.dat
 Plot can be found in higgs_fit.svg
 
 
------- TASK C: central finite differences ------
+------ TASK C ------
 
 Rosenbrock comparison
 method = forward, iterations = 23, evals = 341, results:

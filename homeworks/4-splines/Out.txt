@@ -1,11 +1,12 @@
 
 ------ TASK A ------
 Wrote Task_A1.dat
+See plot Task_A1.svg where the spline behaves as expected.
 
 
 ------ TASK B ------
 Wrote Task_B1.dat
-Describing how every function looks as expected?
+See Task_B1.svg and Task_B_debug.svg
 
 --- const ---
 Analytical case: y = 1

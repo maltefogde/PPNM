@@ -261,9 +261,9 @@ int main(int argc, char** argv) {
         matrix Df = diag(wf);
         matrix If = identity(N);
         std::cout << "Fast max|V^T A V - D| = "
-                << max_abs_diff(Vf.T()*A_taskC*Vf, Df) << "\n";
+                  << max_abs_diff(Vf.T()*A_taskC*Vf, Df) << "\n";
         std::cout << "Fast max|V^T V - I|   = "
-                << max_abs_diff(Vf.T()*Vf, If) << "\n";
+                  << max_abs_diff(Vf.T()*Vf, If) << "\n";
 
         std::cout << std::setprecision(10);
         std::cout << "\nCompare EVD_slow and EVD_fast\n";

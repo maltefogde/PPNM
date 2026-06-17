@@ -48,6 +48,7 @@ int main(int argc, char** argv) {
         }
 
         std::cout << "Wrote Task_A1.dat\n";
+        std::cout << "See plot Task_A1.svg where the spline behaves as expected.\n";
     }
 
     if(do_taskB) {
@@ -74,7 +75,7 @@ int main(int argc, char** argv) {
         }
 
         std::cout << "Wrote Task_B1.dat\n";
-        std::cout << "Describing how every function looks as expected?\n";
+        std::cout << "See Task_B1.svg and Task_B_debug.svg\n";
 
         vec x2 = {1,2,3,4,5};
         test_spline(x2, {1,1,1,1,1}, "const", 0);

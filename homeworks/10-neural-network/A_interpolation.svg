@@ -256,12 +256,14 @@
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
 </g>
 	<g id="gnuplot_plot_1" ><title>exact</title>
-<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+<g fill="none" color="#FFFFFF" stroke="black" stroke-width="3.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="3.00" stroke-linecap="butt" stroke-linejoin="miter">
 	<g transform="translate(507.09,75.91)" stroke="none" fill="black" font-family="Arial" font-size="12.00"  text-anchor="end">
 		<text><tspan font-family="Arial" >exact</tspan></text>
 	</g>
 </g>
-<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+<g fill="none" color="black" stroke="currentColor" stroke-width="3.00" stroke-linecap="butt" stroke-linejoin="miter">
 	<path stroke='rgb(148,   0, 211)'  d='M515.48,72.01 L558.04,72.01 M72.53,173.14 L75.04,172.88 L77.55,172.82 L80.06,172.96 L82.58,173.31 L85.09,173.87
 		L87.60,174.66 L90.11,175.68 L92.62,176.93 L95.13,178.41 L97.64,180.14 L100.16,182.10 L102.67,184.31 L105.18,186.77
 		L107.69,189.47 L110.20,192.41 L112.71,195.59 L115.22,199.01 L117.74,202.66 L120.25,206.55 L122.76,210.65 L125.27,214.98
@@ -290,13 +292,13 @@
 		L569.80,289.38 L572.31,285.95 L574.82,282.50  '/></g>
 	</g>
 	<g id="gnuplot_plot_2" ><title>network</title>
-<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+<g fill="none" color="black" stroke="currentColor" stroke-width="3.00" stroke-linecap="butt" stroke-linejoin="miter">
 	<g transform="translate(507.09,93.91)" stroke="none" fill="black" font-family="Arial" font-size="12.00"  text-anchor="end">
 		<text><tspan font-family="Arial" >network</tspan></text>
 	</g>
 </g>
-<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
-	<path stroke='rgb(  0, 158, 115)' stroke-dasharray='2.5,4.0'  d='M515.48,90.01 L558.04,90.01 M72.53,173.20 L75.04,172.81 L77.55,172.65 L80.06,172.74 L82.58,173.06 L85.09,173.62
+<g fill="none" color="black" stroke="currentColor" stroke-width="3.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(  0, 158, 115)' stroke-dasharray='7.5,12.0'  d='M515.48,90.01 L558.04,90.01 M72.53,173.20 L75.04,172.81 L77.55,172.65 L80.06,172.74 L82.58,173.06 L85.09,173.62
 		L87.60,174.42 L90.11,175.46 L92.62,176.75 L95.13,178.28 L97.64,180.05 L100.16,182.07 L102.67,184.32 L105.18,186.82
 		L107.69,189.55 L110.20,192.52 L112.71,195.73 L115.22,199.16 L117.74,202.82 L120.25,206.70 L122.76,210.80 L125.27,215.11
 		L127.78,219.62 L130.29,224.33 L132.80,229.22 L135.32,234.29 L137.83,239.53 L140.34,244.93 L142.85,250.46 L145.36,256.13

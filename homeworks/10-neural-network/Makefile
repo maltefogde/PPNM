@@ -23,8 +23,8 @@ A_interpolation.svg: A_interpolation.dat
 		set title "Task A: neural-network interpolation"; \
 		set key top right; \
 		plot \
-			"A_interpolation.dat" using 1:2 with lines title "exact", \
-			"A_interpolation.dat" using 1:3 with lines dashtype 2 title "network"; \
+			"A_interpolation.dat" using 1:2 with lines lw 3 title "exact", \
+			"A_interpolation.dat" using 1:3 with lines lw 3 dashtype 2 title "network"; \
 	' | gnuplot
 
 B_derivatives.svg: B_derivatives.dat
